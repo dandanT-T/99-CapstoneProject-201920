@@ -208,6 +208,7 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
 
+
     def move_arm_to_position(self, desired_arm_position):
         """
         Move its Arm to the given position, where 0 means all the way DOWN.
