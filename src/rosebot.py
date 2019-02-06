@@ -244,6 +244,9 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
+        self.motor.turn_on(-100)
+        if self.motor.get_position()==0:
+            self.motor.turn_off()
 
 ###############################################################################
 #    SensorSystem
