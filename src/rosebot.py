@@ -257,11 +257,11 @@ class SensorSystem(object):
     def __init__(self):
         self.touch_sensor = TouchSensor(1)
         # These need the port numbers
-        self.color_sensor = ColorSensor()
-        self.ir_proximity_sensor = InfraredProximitySensor()
-        self.ir_beacon_sensor = InfraredBeaconSensor()
-
-        # These need some configuration
+        # self.color_sensor = ColorSensor()
+        # self.ir_proximity_sensor = InfraredProximitySensor()
+        # self.ir_beacon_sensor = InfraredBeaconSensor()
+        #
+        # # These need some configuration
         # self.beacon_system =
         # self.display_system =
         # self.camera =
