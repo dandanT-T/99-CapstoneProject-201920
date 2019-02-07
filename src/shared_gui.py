@@ -165,7 +165,8 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
       :type  mqtt_sender:      com.MqttClient
     """
     print('Go forward')
-
+    mqtt_sender.connect_to_ev3()
+    mqtt_sender.send_message("forward",[left_entry_box.get(),right_entry_box.get()])
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -175,7 +176,9 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-
+    print('Go backward')
+    mqtt_sender.connect_to_ev3()
+    mqtt_sender.send_message("backward",[left_entry_box.get(),right_entry_box.get()])
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     """
     Tells the robot to move using the speeds in the given entry boxes,
