@@ -64,7 +64,6 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm_frame = shared_gui.get_arm_frame(main_frame,mqtt_sender)
     control_frame = shared_gui.get_control_frame(main_frame,mqtt_sender)
     return teleop_frame, arm_frame, control_frame
-    pass
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame):
