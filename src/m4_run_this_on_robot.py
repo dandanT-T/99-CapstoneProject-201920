@@ -32,6 +32,14 @@ def test_calibrate():
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
 
+def test_DriveSystem():
+    robot = rosebot.RoseBot()
+    robot.drive_system.go(100,100)
+    robot.drive_system.stop()
+    #robot.drive_system.go_straight_for_seconds(5,100)
+    #robot.drive_system.go_straight_for_inches_using_time(12,100)
+    #robot.drive_system.go_straight_for_inches_using_encoder(12,100)
+
 
 
 # -----------------------------------------------------------------------------
