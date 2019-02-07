@@ -187,8 +187,8 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    l = abs(left_entry_box.get())
-    r=abs(right_entry_box.get())
+    l = abs(int(left_entry_box.get()))
+    r=abs(int(right_entry_box.get()))
     print('Go left',left_entry_box.get(),right_entry_box.get())
     mqtt_sender.send_message("left",[-l,r])
 
@@ -201,8 +201,8 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    l = abs(left_entry_box.get())
-    r=abs(right_entry_box.get())
+    l = abs(int(left_entry_box.get()))
+    r=abs(int(right_entry_box.get()))
     print('Go right',left_entry_box.get(),right_entry_box.get())
     mqtt_sender.send_message("right",[l,-r])
 
