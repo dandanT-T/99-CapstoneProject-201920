@@ -187,6 +187,7 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
+    print('')
 
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
