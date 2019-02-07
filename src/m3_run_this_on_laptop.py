@@ -79,6 +79,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame):
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
 
+    #Local laptop GUI has been implemented
 
 
 # -----------------------------------------------------------------------------

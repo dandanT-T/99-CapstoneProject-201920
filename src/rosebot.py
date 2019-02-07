@@ -98,6 +98,7 @@ class DriveSystem(object):
                 self.stop()
                 break
 
+    #Methods have been implemented for the drive control system
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
