@@ -6,4 +6,14 @@
     Yu Xin, Kirk Preston, Nelson Rainey and Zhicheng Kai.
   Winter term, 2018-2019.
 """
+class Handler(object):
+    def __init__(self,robot):
+        """
+        :type robot: rosebot.RoseBot
+        """
 
+        self.robot = robot
+
+    def forward(self, left_wheel_speed, right_wheel_speed):
+        print("got foward", left_wheel_speed, right_wheel_speed)
+        self. robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
