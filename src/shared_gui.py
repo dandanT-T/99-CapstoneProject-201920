@@ -173,6 +173,35 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+def get_sound_frame(window,mqtt_sender):
+    frame=ttk.Frame(window,padding=10,borderwidth=5,relief="ridge")
+    frame.grid()
+
+    frame_label=ttk.Label(frame,text="Sound System")
+    frame_label.grid(row=0,column=1)
+
+    number_of_times_entry=ttk.Entry(frame,width=9)
+    number_of_times_entry.grid(row=1,column=0)
+    beep_button=ttk.Button(frame,text="Beep for given times")
+    beep_button.grid(row=1,column=2)
+
+    given_frequency_entry=ttk.Entry(frame,width=9)
+    given_frequency_entry.grid(row=2,column=0)
+    given_duration_entry=ttk.Entry(frame,width=9)
+    given_duration_entry.grid(row=2,column=1)
+    play_a_tone_button=ttk.Button(frame,text="Play a tone")
+    play_a_tone_button.grid(row=2,column=2)
+
+    given_phrase_entry=ttk.Entry(frame,width=9)
+    given_phrase_entry.grid(row=3,column=0)
+    speak_phrase_button=ttk.Button(frame,text="Speak a given phrase")
+    speak_phrase_button.grid(row=3,column=2)
+
+    beep_button["command"]=lambda: handle_beep_for_times(number_of_times_entry.get(),mqtt_sender)
+    play_a_tone_button["command"]=lambda: handle_play_a_tone(given_frequency_entry.get(),given_duration_entry.get(),
+                                                             mqtt_sender)
+    speak_phrase_button["command"]=lambda: handle_speak_phrase(given_phrase_entry.get(),mqtt_sender)
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
