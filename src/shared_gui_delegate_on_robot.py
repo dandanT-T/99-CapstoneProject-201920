@@ -15,5 +15,5 @@ class Handler(object):
         self.robot = robot
 
     def forward(self, left_wheel_speed, right_wheel_speed):
-        print("got foward", left_wheel_speed, right_wheel_speed)
+        print("go forward", left_wheel_speed, right_wheel_speed)
         self. robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
