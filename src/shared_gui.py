@@ -284,6 +284,10 @@ def handle_go_straight_using_encoder_approach(given_number_of_inches_entry,given
     mqtt_sender.send_message("go_straight_for_inches_using_encoder",[given_number_of_inches_entry.get(),
                                                                   given_speed_entry.get()])
 
+def handle_beep_for_times(given_frequency_entry,given_duration_entry,mqtt_sender):
+    print('beep for time')
+
+
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
 ###############################################################################
