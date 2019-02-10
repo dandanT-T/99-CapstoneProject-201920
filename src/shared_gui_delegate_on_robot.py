@@ -78,7 +78,8 @@ class Handler(object):
         print('calibrating arm')
         self.robot.arm_and_claw.calibrate_arm()
 
-    def move_arm_to_position(self):
+    def move_arm_to_position(self,position):
+        P = position
         print('moving arm to position')
-        self.robot.arm_and_claw.move_arm_to_position()
+        self.robot.arm_and_claw.move_arm_to_position(P)
 
