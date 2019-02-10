@@ -197,10 +197,10 @@ def get_sound_frame(window,mqtt_sender):
     speak_phrase_button=ttk.Button(frame,text="Speak a given phrase")
     speak_phrase_button.grid(row=3,column=2)
 
-    beep_button["command"]=lambda: handle_beep_for_times(number_of_times_entry.get(),mqtt_sender)
-    play_a_tone_button["command"]=lambda: handle_play_a_tone(given_frequency_entry.get(),given_duration_entry.get(),
+    beep_button["command"]=lambda: handle_beep_for_times(number_of_times_entry,mqtt_sender)
+    play_a_tone_button["command"]=lambda: handle_play_a_tone(given_frequency_entry,given_duration_entry,
                                                              mqtt_sender)
-    speak_phrase_button["command"]=lambda: handle_speak_phrase(given_phrase_entry.get(),mqtt_sender)
+    speak_phrase_button["command"]=lambda: handle_speak_phrase(given_phrase_entry,mqtt_sender)
 
 ###############################################################################
 ###############################################################################
@@ -283,6 +283,19 @@ def handle_go_straight_using_encoder_approach(given_number_of_inches_entry,given
     print("go_straight_using_encoder_approach")
     mqtt_sender.send_message("go_straight_for_inches_using_encoder",[given_number_of_inches_entry.get(),
                                                                   given_speed_entry.get()])
+
+def handle_beep_for_times(number_of_times_entry,mqtt_sender):
+    print('i will beep', number_of_times_entry.get())
+    mqtt_sender.send_message('beeping',[number_of_times_entry.get()])
+
+def handle_play_a_tone(given_frequency_entry,given_duration_entry,mqtt_sender):
+    print('i am playing', given_frequency_entry.get(), 'for', given_duration_entry.get())
+    mqtt_sender.send_message('tone',[given_frequency_entry.get(),given_duration_entry.get()])
+
+def handle_speak_phrase(given_phrase_entry,mqtt_sender):
+    print('i am speaking', given_phrase_entry.get())
+    mqtt_sender.send_message('phrase',[given_phrase_entry.get()])
+
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
