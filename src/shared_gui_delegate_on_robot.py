@@ -13,7 +13,7 @@ class Handler(object):
         """
 
         self.robot = robot
-### Drive System Shared Delegate Kirk Preston
+### Drive System Shared Delegate Kirk Preston ###
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("go forward", left_wheel_speed, right_wheel_speed)
@@ -49,7 +49,7 @@ class Handler(object):
 
 
 
-### Arm & Claw Shared Delegate- Nelson
+### Arm & Claw Shared Delegate- Nelson ###
 
     def beeping(self,number):
         N = int(number)
