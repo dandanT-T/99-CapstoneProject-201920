@@ -36,17 +36,26 @@ def get_teleoperation_frame(window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Teleoperation")
     left_speed_label = ttk.Label(frame, text="Left wheel speed (0 to 100)")
     right_speed_label = ttk.Label(frame, text="Right wheel speed (0 to 100)")
+    number_of_seconds_label=ttk.Label(frame,text="Number of Seconds")
+    given_number_of_inches_label=ttk.Label(frame,text="Go Straight for Number of Inches")
+    given_speed_label=ttk.Label(frame,text="Go Straight at This Speed")
 
     left_speed_entry = ttk.Entry(frame, width=8)
     left_speed_entry.insert(0, "100")
     right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.insert(0, "100")
+    given_number_of_seconds_entry=ttk.Entry(frame,width=10)
+    given_number_of_inches_entry=ttk.Entry(frame,width=10)
+    given_speed_entry=ttk.Entry(frame,width=10)
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
     left_button = ttk.Button(frame, text="Left")
     right_button = ttk.Button(frame, text="Right")
     stop_button = ttk.Button(frame, text="Stop")
+    go_straight_for_seconds_button=ttk.Button(frame,text="Go Straight for Seconds")
+    time_approach_button=ttk.Button(frame,text="go straight using time approach")
+    encoder_approach_button=ttk.Button(frame,text="go straight using encoder approach")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
@@ -61,6 +70,16 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button.grid(row=4, column=2)
     backward_button.grid(row=5, column=1)
 
+    given_speed_label.grid(row=6,column=1)
+    given_speed_entry.grid(row=7,column=1)
+    number_of_seconds_label.grid(row=8,column=0)
+    given_number_of_seconds_entry.grid(row=9,column=0)
+    given_number_of_inches_label.grid(row=10,column=1)
+    go_straight_for_seconds_button.grid(row=9, column=2)
+    given_number_of_inches_entry.grid(row=11,column=1)
+    time_approach_button.grid(row=11,column=0)
+    encoder_approach_button.grid(row=11,column=2)
+
     # Set the button callbacks:
     forward_button["command"] = lambda: handle_forward(
         left_speed_entry, right_speed_entry, mqtt_sender)
@@ -71,6 +90,13 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button["command"] = lambda: handle_right(
         left_speed_entry, right_speed_entry, mqtt_sender)
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
+    go_straight_for_seconds_button["command"]=lambda: handle_go_straight_for_seconds(
+        given_number_of_seconds_entry,given_speed_entry,mqtt_sender)
+    time_approach_button["command"]=lambda: handle_go_straight_using_time_approach(
+        given_number_of_inches_entry,given_speed_entry,mqtt_sender)
+    encoder_approach_button["command"]=lambda: handle_go_straight_using_encoder_approach(
+        given_number_of_inches_entry,given_speed_entry,mqtt_sender)
+
 
     return frame
 
@@ -215,6 +241,19 @@ def handle_stop(mqtt_sender):
     print('stop')
     mqtt_sender.send_message('stop')
 
+def handle_go_straight_for_seconds(given_number_of_seconds_entry,given_speed_entry,mqtt_sender):
+    print("go_straight_for_seconds")
+    mqtt_sender.send_message("go_straight_for_seconds",[given_number_of_seconds_entry.get(),given_speed_entry.get()])
+
+def handle_go_straight_using_time_approach(given_number_of_inches_entry,given_speed_entry,mqtt_sender):
+    print("go_straight_using_time_approach")
+    mqtt_sender.send_message("go_straight_for_inches_using_time",[given_number_of_inches_entry.get(),
+                                                                  given_speed_entry.get()])
+
+def handle_go_straight_using_encoder_approach(given_number_of_inches_entry,given_speed_entry,mqtt_sender):
+    print("go_straight_using_encoder_approach")
+    mqtt_sender.send_message("go_straight_for_inches_using_encoder",[given_number_of_inches_entry.get(),
+                                                                  given_speed_entry.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
