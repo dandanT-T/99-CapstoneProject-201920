@@ -16,7 +16,7 @@ class Handler(object):
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("go forward", left_wheel_speed, right_wheel_speed)
-        self. robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+        self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
 
     def beeping(self,number):
         N = int(number)
@@ -27,8 +27,24 @@ class Handler(object):
         F = int(frequency)
         D = (duration)
         for k in range(D):
-            print(F)
+            print('making tone F for time D')
 
     def phrase(self,phrase):
         P = str(phrase)
-        print(P)
+        print('saying phrase P')
+
+    def raise_arm(self):
+        print('raising arm')
+        self.robot.arm_and_claw.raise_arm()
+
+    def lower_arm(self):
+        print('lowering arm')
+        self.robot.arm_and_claw.lower_arm()
+
+    def calibrate_arm(self):
+        print('calibrating arm')
+        self.robot.arm_and_claw.calibrate_arm()
+
+    def move_arm_to_position(self):
+        print('moving arm to position')
+        self.robot.arm_and_claw.move_arm_to_position()
