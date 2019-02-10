@@ -283,7 +283,7 @@ def handle_go_straight_using_encoder_approach(given_number_of_inches_entry,given
     print("go_straight_using_encoder_approach")
     mqtt_sender.send_message("go_straight_for_inches_using_encoder",[given_number_of_inches_entry.get(),
                                                                   given_speed_entry.get()])
-
+###next three done by Nelson Rainey###
 def handle_beep_for_times(number_of_times_entry,mqtt_sender):
     print('i will beep', number_of_times_entry.get())
     mqtt_sender.send_message('beeping',[number_of_times_entry.get()])
@@ -295,7 +295,7 @@ def handle_play_a_tone(given_frequency_entry,given_duration_entry,mqtt_sender):
 def handle_speak_phrase(given_phrase_entry,mqtt_sender):
     print('i am speaking', given_phrase_entry.get())
     mqtt_sender.send_message('phrase',[given_phrase_entry.get()])
-
+###finish nelson work###
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.
