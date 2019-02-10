@@ -17,3 +17,18 @@ class Handler(object):
     def forward(self, left_wheel_speed, right_wheel_speed):
         print("go forward", left_wheel_speed, right_wheel_speed)
         self. robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
+
+    def beeping(self,number):
+        N = int(number)
+        for k in range(N):
+            print('beep')
+
+    def tone(self,frequency, duration):
+        F = int(frequency)
+        D = (duration)
+        for k in range(D):
+            print(F)
+
+    def phrase(self,phrase):
+        P = str(phrase)
+        print(P)
