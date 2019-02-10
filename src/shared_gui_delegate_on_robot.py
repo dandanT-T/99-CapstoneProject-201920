@@ -18,6 +18,29 @@ class Handler(object):
         print("go forward", left_wheel_speed, right_wheel_speed)
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
 
+    def backward(self, left_wheel_speed, right_wheel_speed):
+        print("go backward", left_wheel_speed, right_wheel_speed)
+        self.robot.drive_system.go(int(left_wheel_speed*-1), int(right_wheel_speed*-1))
+
+    def left(self, left_wheel_speed, right_wheel_speed):
+        print("going left", left_wheel_speed, right_wheel_speed)
+        self.robot.drive_system.go((int(left_wheel_speed))*-1, int(right_wheel_speed)*-1)
+
+    def right(self, left_wheel_speed, right_wheel_speed):
+        print("going right", left_wheel_speed, right_wheel_speed)
+        self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed)*-1)
+
+    def stop(self):
+        print('stopping...')
+        self.robot.drive_system.stop()
+
+    def go_straight_for_seconds(self, left_wheel_speed, right_wheel_speed, seconds):
+        print("going for seconds", left_wheel_speed, right_wheel_speed, seconds)
+        while start < seconds:
+            self.forward(int(right_wheel_speed), int(left_wheel_speed))
+            break
+        self.stop()
+
     def beeping(self,number):
         N = int(number)
         for k in range(N):
@@ -48,3 +71,4 @@ class Handler(object):
     def move_arm_to_position(self):
         print('moving arm to position')
         self.robot.arm_and_claw.move_arm_to_position()
+
