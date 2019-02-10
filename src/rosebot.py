@@ -311,10 +311,15 @@ class SoundSystem(object):
         self.song_maker = song_maker
 
     def tones_until_touch_sensor_is_pressed(self):
+
         """
         Plays an increasing sequence of short tones,
         stopping when the touch sensor is pressed.
         """
+        while True:
+            if ArmAndClaw.touch_sensor() == 1:
+                break
+            self.tone_maker
 
 
 ###############################################################################
