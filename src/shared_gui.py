@@ -202,6 +202,8 @@ def get_sound_frame(window,mqtt_sender):
                                                              mqtt_sender)
     speak_phrase_button["command"]=lambda: handle_speak_phrase(given_phrase_entry,mqtt_sender)
 
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
