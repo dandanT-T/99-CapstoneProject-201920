@@ -26,7 +26,7 @@ class Handler(object):
 
     def left(self, left_wheel_speed, right_wheel_speed):
         print("going left", left_wheel_speed, right_wheel_speed)
-        self.robot.drive_system.go((int(left_wheel_speed))*-1, int(right_wheel_speed))
+        self.robot.drive_system.go(int(left_wheel_speed)*-1, int(right_wheel_speed))
 
     def right(self, left_wheel_speed, right_wheel_speed):
         print("going right", left_wheel_speed, right_wheel_speed)
