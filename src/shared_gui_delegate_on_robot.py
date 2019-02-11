@@ -40,13 +40,13 @@ class Handler(object):
         print("going for seconds", speed, seconds)
         self.robot.drive_system.go_straight_for_seconds(seconds,int(speed))
 
-    def go_straight_for_inches_using_time(self, left_wheel_speed, right_wheel_speed, inches):
-        print("going for inches by seconds", left_wheel_speed, right_wheel_speed, inches)
-        self.robot.drive_system.go_straight_for_inches_using_time(inches, int(left_wheel_speed), int(right_wheel_speed))
+    def go_straight_for_inches_using_time(self, inches,speed):
+        print("going for inches by seconds", speed, inches)
+        self.robot.drive_system.go_straight_for_inches_using_time(inches, int(speed))
 
-    def go_straight_for_inches_using_encoder(self, left_wheel_speed, right_wheel_speed, inches):
-        print('going for inches by encoder', left_wheel_speed, right_wheel_speed, inches)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, int(left_wheel_speed), int(right_wheel_speed))
+    def go_straight_for_inches_using_encoder(self, inches,speed):
+        print('going for inches by encoder', speed, inches)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, int(speed))
 
 
 
