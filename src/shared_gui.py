@@ -261,7 +261,7 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     l = abs(int(left_entry_box.get()))
     r=abs(int(right_entry_box.get()))
     print('Go right',left_entry_box.get(),right_entry_box.get())
-    mqtt_sender.send_message("right",[l,-r])
+    mqtt_sender.send_message("going right",[l,-r])
 
 
 def handle_stop(mqtt_sender):
