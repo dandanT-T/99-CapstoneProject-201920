@@ -185,17 +185,23 @@ def get_sound_frame(window,mqtt_sender):
     beep_button=ttk.Button(frame,text="Beep for given times")
     beep_button.grid(row=1,column=2)
 
+    frequency_label=ttk.Label(frame,text="Frequency")
+    frequency_label.grid(row=2,column=0)
+    duration_label=ttk.Label(frame,text="Duration")
+    duration_label.grid(row=2,column=1)
     given_frequency_entry=ttk.Entry(frame,width=9)
-    given_frequency_entry.grid(row=2,column=0)
+    given_frequency_entry.grid(row=3,column=0)
     given_duration_entry=ttk.Entry(frame,width=9)
-    given_duration_entry.grid(row=2,column=1)
+    given_duration_entry.grid(row=3,column=1)
     play_a_tone_button=ttk.Button(frame,text="Play a tone")
-    play_a_tone_button.grid(row=2,column=2)
+    play_a_tone_button.grid(row=3,column=2)
 
+    phrase_label=ttk.Label(frame,text="Phrase")
+    phrase_label.grid(row=4,column=0)
     given_phrase_entry=ttk.Entry(frame,width=9)
-    given_phrase_entry.grid(row=3,column=0)
+    given_phrase_entry.grid(row=5,column=0)
     speak_phrase_button=ttk.Button(frame,text="Speak a given phrase")
-    speak_phrase_button.grid(row=3,column=2)
+    speak_phrase_button.grid(row=5,column=2)
 
     beep_button["command"]=lambda: handle_beep_for_times(number_of_times_entry,mqtt_sender)
     play_a_tone_button["command"]=lambda: handle_play_a_tone(given_frequency_entry,given_duration_entry,
