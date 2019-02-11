@@ -359,3 +359,6 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+    print('exit')
+    handle_quit(mqtt_sender)
+    exit()
