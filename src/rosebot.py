@@ -126,7 +126,7 @@ class DriveSystem(object):
         self.go(speed, speed)
         while True:
             self.right_motor.get_position()
-            if self.right_motor.get_position() > inches * 10:
+            if self.right_motor.get_position() > int(inches) * 10:
                 break
         self.stop()
     # -------------------------------------------------------------------------
