@@ -85,7 +85,7 @@ class Handler(object):
     def move_arm_to_position(self,position):
         P = position
         print('moving arm to position')
-        self.robot.arm_and_claw.move_arm_to_position(P)
+        self.robot.arm_and_claw.move_arm_to_position(int(P))
 
     def quit(self):
         print('quit')
