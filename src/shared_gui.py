@@ -54,8 +54,8 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button = ttk.Button(frame, text="Right")
     stop_button = ttk.Button(frame, text="Stop")
     go_straight_for_seconds_button=ttk.Button(frame,text="Go Straight for Seconds")
-    time_approach_button=ttk.Button(frame,text="go straight using time approach")
-    encoder_approach_button=ttk.Button(frame,text="go straight using encoder approach")
+    time_approach_button=ttk.Button(frame,text="Time approach")
+    encoder_approach_button=ttk.Button(frame,text="Encoder approach")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)

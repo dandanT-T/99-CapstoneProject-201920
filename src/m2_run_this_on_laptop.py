@@ -43,6 +43,8 @@ def main():
     # -------------------------------------------------------------------------
     teleop_frame,arm_frame,control_frame=get_shared_frames(main_frame,mqtt_sender)
     grid_frames(teleop_frame,arm_frame,control_frame)
+    sound_frame=shared_gui.get_sound_frame(main_frame,mqtt_sender)
+    sound_frame.grid(row=0,column=1)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
