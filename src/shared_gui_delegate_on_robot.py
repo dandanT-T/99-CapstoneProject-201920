@@ -13,6 +13,7 @@ class Handler(object):
         """
 
         self.robot = robot
+        self.need_to_stop = False
 ### Drive System Shared Delegate Kirk Preston ###
 
     def forward(self, left_wheel_speed, right_wheel_speed):
@@ -82,4 +83,8 @@ class Handler(object):
         P = position
         print('moving arm to position')
         self.robot.arm_and_claw.move_arm_to_position(P)
+
+    def quit(self):
+        print('qqqqqqqqqqqquit')
+        self.need_to_stop = True
 

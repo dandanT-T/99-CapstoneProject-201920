@@ -27,7 +27,7 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        if mqtt_receiver.__getattribute__('quit'):
+        if delegate.need_to_stop:
             break
 
 # -----------------------------------------------------------------------------
