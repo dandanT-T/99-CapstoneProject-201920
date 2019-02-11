@@ -36,9 +36,9 @@ class Handler(object):
         print('stopping...')
         self.robot.drive_system.stop()
 
-    def go_straight_for_seconds(self, left_wheel_speed, right_wheel_speed, seconds):
-        print("going for seconds", left_wheel_speed, right_wheel_speed, seconds)
-        self.robot.drive_system.go_straight_for_seconds(seconds,int(left_wheel_speed))
+    def go_straight_for_seconds(self, speed, seconds):
+        print("going for seconds", speed, seconds)
+        self.robot.drive_system.go_straight_for_seconds(seconds,int(speed))
 
     def go_straight_for_inches_using_time(self, left_wheel_speed, right_wheel_speed, inches):
         print("going for inches by seconds", left_wheel_speed, right_wheel_speed, inches)
