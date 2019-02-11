@@ -88,6 +88,6 @@ class Handler(object):
         self.robot.arm_and_claw.move_arm_to_position(P)
 
     def quit(self):
-        print('qqqqqqqqqqqquit')
+        print('quit')
         self.need_to_stop = True
 
