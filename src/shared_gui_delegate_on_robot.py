@@ -54,18 +54,21 @@ class Handler(object):
 
     def beeping(self,number):
         N = int(number)
+        print('i am beeping')
         for k in range(N):
-            print('beep')
+            self.robot.sound_system.beeper().wait()
 
     def tone(self,frequency, duration):
         F = int(frequency)
         D = (duration)
+        print('i am singing')
         for k in range(D):
-            print('making tone F for time D')
+            self.robot.sound_system.song_maker(F).wait()
 
     def phrase(self,phrase):
         P = str(phrase)
-        print('saying phrase P')
+        print('i am speaking')
+        self.robot.sound_system.speech_maker(P)
 
     def raise_arm(self):
         print('raising arm')
