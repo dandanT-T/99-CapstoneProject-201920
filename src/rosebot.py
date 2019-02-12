@@ -133,7 +133,8 @@ class DriveSystem(object):
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
 
-    ### Methods done by Kirk Preston ###
+    ### Color Methods done by Kirk Preston ###
+
     def go_straight_until_intensity_is_less_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
@@ -268,11 +269,14 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     # Methods for driving that use the camera.
     # -------------------------------------------------------------------------
+    ### Camera Methods worked on by Kirk Preston ###
+
     def display_camera_data(self):
         """
         Displays on the GUI the Blob data of the Blob that the camera sees
         (if any).
         """
+        self.sensor_system.camera.get_biggest_blob()
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
@@ -280,6 +284,13 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        '''while True:
+            if self.sensor_system.camera.low_level_camera. and 
+                self.stop()
+                break
+            self.go(speed, speed * -1)'''
+
+
 
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
@@ -287,6 +298,12 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        '''while True:
+            if self.sensor_system.camer  and
+                self.stop()
+                break
+            self.go(speed*-1, speed)'''
+
 
 
 ###############################################################################
