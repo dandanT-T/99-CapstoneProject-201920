@@ -133,6 +133,7 @@ class DriveSystem(object):
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
 
+    ### Methods done by Kirk Preston ###
     def go_straight_until_intensity_is_less_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
@@ -188,15 +189,22 @@ class DriveSystem(object):
                 self.stop()
                 break
             self.go(speed, speed)
-            
+
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
     # -------------------------------------------------------------------------
+    ### Proximity sensor implementation- Kirk Preston ###
+
     def go_forward_until_distance_is_less_than(self, inches, speed):
         """
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
+        while True:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() < inches:
+                self.stop()
+                break
+            self.go(speed, speed)
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -204,6 +212,12 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+        while True:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() > inches:
+                self.stop()
+                break
+            self.go(speed*-1, speed*-1)
+
 
     def go_until_distance_is_within(self, delta, inches, speed):
         """
@@ -215,6 +229,18 @@ class DriveSystem(object):
         the robot should move until it is between 6.8 and 7.4 inches
         from the object.
         """
+        while True:
+            dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if dist >= inches-delta and dist <= inches+delta:
+                self.stop()
+                break
+            elif dist < inches-delta:
+                self.go(speed,speed)
+            elif dist > inches+delta:
+                self.go(speed*-1, speed*-1)
+        self.stop()
+
+
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
