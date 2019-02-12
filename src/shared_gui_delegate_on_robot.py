@@ -62,7 +62,7 @@ class Handler(object):
 
     def tone(self,frequency, duration):
         F = int(frequency)
-        D = (duration)
+        D = int(duration)
         print('i am singing')
         for k in range(D):
             self.robot.sound_system.song_maker(F).wait()
