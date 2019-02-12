@@ -99,7 +99,7 @@ class DriveSystem(object):
         # Note: using   time.sleep   to control the time to run is better.
         # We do it with a WHILE loop here for pedagogical reasons.
         while True:
-            if time.time() - start-1 >= int(seconds):
+            if time.time() - start+1 >= int(seconds):
                 self.stop()
                 break
 
