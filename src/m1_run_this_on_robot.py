@@ -28,6 +28,7 @@ def real_thing():
     while True:
         time.sleep(0.01)
         if delegate.need_to_stop:
+            print('quit')
             break
 
 # -----------------------------------------------------------------------------
