@@ -70,7 +70,7 @@ class Handler(object):
     def phrase(self,phrase):
         P = str(phrase)
         print('i am speaking')
-        self.robot.sound_system.speech_maker(P)
+        self.robot.sound_system.speech_maker.speak(P).wait()
 
     def raise_arm(self):
         print('raising arm')
