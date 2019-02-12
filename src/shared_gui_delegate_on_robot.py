@@ -57,8 +57,7 @@ class Handler(object):
     def beeping(self,number):
         N = int(number)
         print('i am beeping')
-        for k in range(N):
-            self.robot.sound_system.beeper().wait()
+        self.robot.sound_system.beeper(N).wait()
 
     def tone(self,frequency, duration):
         F = int(frequency)
