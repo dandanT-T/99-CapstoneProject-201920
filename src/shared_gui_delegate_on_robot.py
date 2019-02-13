@@ -40,7 +40,7 @@ class Handler(object):
 
     def go_straight_for_seconds(self, seconds, speed):
         print("going for seconds", speed, seconds)
-        self.robot.drive_system.go_straight_for_seconds(seconds,int(speed))
+        self.robot.drive_system.go_straight_for_seconds(float(seconds),int(speed))
 
     def go_straight_for_inches_using_time(self, inches,speed):
         print("going for inches by seconds", speed, inches)

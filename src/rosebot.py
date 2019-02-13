@@ -94,16 +94,17 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
+        self.go(speed, speed)
         # start = time.time()+1
         time.sleep(seconds)
-        self.go(speed, speed)
+        self.stop()
         # Note: using   time.sleep   to control the time to run is better.
         # We do it with a WHILE loop here for pedagogical reasons.
         # while True:
-            # if time.time() - start >= int(seconds):
-
-        # self.stop()
-        # break
+        #     if time.time() - start >= int(seconds):
+        #
+        #         self.stop()
+        #         break
 
     #Methods have been implemented for the drive control system
 
@@ -124,15 +125,11 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-        # for k in range(int(inches)):
+
         self.right_motor.reset_position()
         self.go(speed, speed)
         while True:
-            self.right_motor.get_position()
-            if self.right_motor.get_position() > 360:
-                break
-            else:
-                # self.go_backward_until_distance_is_greater_than(inches,speed)
+            if abs(self.right_motor.get_position()) > inches*self.wheel_circumference/360:
                 break
         self.stop()
     # -------------------------------------------------------------------------
@@ -355,7 +352,7 @@ class ArmAndClaw(object):
         position=self.motor.get_position()
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position()==position-14.2*360:
+            if self.motor.get_position()==position-13*360:
                 self.motor.turn_off()
                 break
         self.motor.reset_position()
