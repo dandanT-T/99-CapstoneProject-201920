@@ -98,12 +98,15 @@ class Handler(object):
     def m3_beep_move(self):
         print('moving forward and beeping')
         self.robot.drive_system.go()
-         #   robot.sound_system.beeper.beep()
-          #  if robot.sensor_system.ir_proximity_sensor.get_distance() is
 
-    def m3_spin_until_object(self):
+
+    def m3_spin_until_object(self, spin_direction, speed):
         print('spinning at set speed')
-        self.robot.drive_system.spin_clockwise_until_sees_object()
+        if spin_direction == 'CW':
+            self.robot.drive_system.spin_clockwise_until_sees_object(speed)
+        elif spin_direction == 'CCW':
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(speed)
+        self.m3_beep_move()
 
     def m3_line_intensity_follow(self):
         print('following surface with intensity')

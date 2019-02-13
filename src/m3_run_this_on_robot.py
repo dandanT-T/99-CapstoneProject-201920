@@ -29,9 +29,10 @@ def real_thing():
     mqtt_reciever.connect_to_pc()
 
     while True:
-        time.sleep(0.01)
-        if delegate.is_time_to_stop:
+        if delegate.stop():
             break
+        time.sleep(0.1)
+
 
 
 def run_test_arm():
@@ -46,7 +47,7 @@ def run_test_calibrate():
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
 
-def m3_spin_until_object():
+'''def m3_spin_until_object():
     robot = rosebot.RoseBot()
     while True:
         robot.drive_system.spin_clockwise_until_sees_object()
@@ -54,7 +55,7 @@ def m3_spin_until_object():
 
 def m3_light_intensity():
     robot = rosebot.RoseBot()
-    intensity = robot.drive_system.
+    intensity = robot.drive_system.'''
 
 
 
