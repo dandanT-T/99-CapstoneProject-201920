@@ -92,3 +92,5 @@ class Handler(object):
         print('quit')
         self.need_to_stop = True
 
+    def make_higher_tones(self,initial_frequency,rate_of_increase):
+        self.robot.drive_system.make_higher_tones_while_getting_closer(initial_frequency,rate_of_increase)

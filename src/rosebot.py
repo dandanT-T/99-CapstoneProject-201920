@@ -33,7 +33,7 @@ class RoseBot(object):
         self.sensor_system = SensorSystem()
         self.sound_system = SoundSystem()
         self.led_system = LEDSystem()
-        self.drive_system = DriveSystem(self.sensor_system)
+        self.drive_system = DriveSystem(self.sensor_system,self.sound_system.tone_maker)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
@@ -59,13 +59,14 @@ class DriveSystem(object):
     #          (i.e., left motor goes at speed -S, right motor at speed S).
     # -------------------------------------------------------------------------
 
-    def __init__(self, sensor_system):
+    def __init__(self, sensor_system,tone_maker):
         """
         Stores the given SensorSystem object.
         Constructs two Motors (for the left and right wheels).
           :type sensor_system:  SensorSystem
         """
         self.sensor_system = sensor_system
+        self.tone_maker = tone_maker
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
 
@@ -244,6 +245,12 @@ class DriveSystem(object):
                 self.go(speed*-1, speed*-1)
         self.stop()
 
+    def make_higher_tones_while_getting_closer(self,initial_frequency,rate_of_increase):
+        dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        self.go(50,50)
+        for k in range(dist/2):
+            self.tone_maker.play_tone(initial_frequency,50+2*k)
+        self.stop()
 
 
     # -------------------------------------------------------------------------
