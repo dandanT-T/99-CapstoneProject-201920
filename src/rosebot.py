@@ -263,6 +263,7 @@ class DriveSystem(object):
         is nonnegative.  Requires that the user turn on the Beacon.
         """
 
+
     def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
         """
         Spins counter-clockwise at the given speed until the heading to the Beacon
