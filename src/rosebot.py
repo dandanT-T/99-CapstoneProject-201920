@@ -249,7 +249,7 @@ class DriveSystem(object):
         dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
         self.go(50,50)
         for k in range(dist/2):
-            self.tone_maker.play_tone(initial_frequency,50+2*k)
+            self.tone_maker.play_tone(initial_frequency,50+2*k*rate_of_increase)
         self.stop()
 
 

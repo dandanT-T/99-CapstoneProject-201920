@@ -132,8 +132,6 @@ def handle_higher_tones(initial_frequency,rate_of_increase,mqtt_sender):
     else:
         print("I am make tones with initial frequency of",initial_frequency," and rate of increase of",rate_of_increase)
         mqtt_sender.send_message("make_higher_tones",[initial_frequency,rate_of_increase])
-
-
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
