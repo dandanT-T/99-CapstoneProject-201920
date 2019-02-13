@@ -48,6 +48,20 @@ def run_test_calibrate():
 
 
 
+def m3_spin_until_object():
+    robot = rosebot.RoseBot()
+    while True:
+        robot.drive_system.spin_clockwise_until_sees_object()
+        if robot.
+
+def m3_light_intensity():
+    robot = rosebot.RoseBot()
+    intensity = robot.drive_system.
+
+
+
+
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

@@ -212,6 +212,30 @@ def get_sound_frame(window,mqtt_sender):
 
     return frame
 
+def get_more_beep_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="m3 Beep with Proximity")
+    frame_label.grid(row=0, column=1)
+
+    initial_rate_entry = ttk.Entry(frame, width=9)
+    initial_rate_entry.grid(row=2, column=0)
+    initial_beeps_per_second_label = ttk.Label(frame, text="Times")
+    initial_beeps_per_second_label.grid(row=1, column=0)
+    beep_button = ttk.Button(frame, text="Beep at given rate")
+    beep_button.grid(row=2, column=2)
+
+    rate_of_increase_label = ttk.Label(frame, text="Increase Rate")
+    rate_of_increase_label.grid(row=3, column=0)
+    rate_of_increase_entry = ttk.Entry(frame, width=9)
+    rate_of_increase_entry.grid(row=4, column=0)
+
+    beep_button["command"] = lambda: handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, mqtt_sender)
+
+
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -349,6 +373,9 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
     print('move_arm_to_position')
     mqtt_sender.send_message('move_arm_to_position',[arm_position_entry.get()])
 
+def handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
+    print('I am beeping')
+    mqtt_sender.send_message('m3_beep_move',[])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
