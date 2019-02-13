@@ -64,7 +64,7 @@ class Handler(object):
         F = int(frequency)
         D = int(duration)
         print('i am singing')
-        self.robot.sound_system.tone_maker.play_tone(F,D)
+        self.robot.sound_system.tone_maker.play_tone(F,D).wait()
 
     def phrase(self,phrase):
         P = str(phrase)
@@ -92,8 +92,5 @@ class Handler(object):
         print('quit')
         self.need_to_stop = True
 
-    def m3_beep_move(self):
-        print('moving fw and beeping')
-        self.robot.drive_system.go()
-         #   robot.sound_system.beeper.beep()
-          #  if robot.sensor_system.ir_proximity_sensor.get_distance() is
+    def make_higher_tones(self,initial_frequency,rate_of_increase):
+        self.robot.drive_system.make_higher_tones_while_getting_closer(initial_frequency,rate_of_increase)

@@ -89,6 +89,14 @@ def grid_frames(teleop_frame, arm_frame, control_frame):
     control_frame.grid(row=2,column=0)
 
 def make_higher_tones_frame(main_frame,mqtt_sender):
+    '''
+    Make a frame about individual frame in feature 9.
+    The robot should make tones as it moves, with the tones increasing in frequency as the robot gets closer to the
+    object. The user should be able to set the initial and rate of increase of the frequencies via the GUI.
+    :param main_frame:
+    :param mqtt_sender:
+    :return: frame
+    '''
     make_tone_frame = ttk.Frame(main_frame, padding=10, borderwidth=5, relief="ridge")
     make_tone_frame.grid()
     make_tone_frame_label = ttk.Label(make_tone_frame, text="Frequency get higher when it is closer")
@@ -110,6 +118,20 @@ def make_higher_tones_frame(main_frame,mqtt_sender):
         rate_of_increase_entry.get(),mqtt_sender)
     return make_tone_frame
 
+def handle_higher_tones(initial_frequency,rate_of_increase,mqtt_sender):
+    '''
+    handle the message sent by the button and send the message to another function. Give a error when any of the entry
+    is blank
+    :param initial_frequency:
+    :param rate_of_increase:
+    :param mqtt_sender:
+    :return:
+    '''
+    if initial_frequency==None or rate_of_increase==None:
+        print("Error! Please enter a valid number")
+    else:
+        print("I am make tones with initial frequency of",initial_frequency," and rate of increase of",rate_of_increase)
+        mqtt_sender.send_message("make_higher_tones",[initial_frequency,rate_of_increase])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
