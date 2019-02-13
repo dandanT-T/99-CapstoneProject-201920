@@ -46,8 +46,6 @@ def run_test_calibrate():
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
 
-
-
 def m3_spin_until_object():
     robot = rosebot.RoseBot()
     while True:

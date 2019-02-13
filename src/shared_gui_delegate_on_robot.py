@@ -94,3 +94,13 @@ class Handler(object):
 
     def make_higher_tones(self,initial_frequency,rate_of_increase):
         self.robot.drive_system.make_higher_tones_while_getting_closer(initial_frequency,rate_of_increase)
+
+    def m3_beep_move(self):
+        print('moving forward and beeping')
+        self.robot.drive_system.go()
+         #   robot.sound_system.beeper.beep()
+          #  if robot.sensor_system.ir_proximity_sensor.get_distance() is
+
+    def m3_spin_until_object(self):
+        print('spinning at set speed')
+        self.robot.drive_system.spin_clockwise_until_sees_object()

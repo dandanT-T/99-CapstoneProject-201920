@@ -233,6 +233,26 @@ def get_more_beep_frame(window, mqtt_sender):
 
     beep_button["command"] = lambda: handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, mqtt_sender)
 
+def spin_and_speed_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Spin and Speed")
+    frame_label.grid(row = 0, column=1)
+
+    spin_direction_entry = ttk.Frame(frame, width=9)
+    spin_direction_entry.grid(row=3, column=1)
+    spin_direction_label = ttk.Label(frame, text='Spin Direction')
+    spin_direction_label.grid(row=2, column=1)
+
+    spin_speed_entry = ttk.Frame(frame, width=9)
+    spin_speed_entry.grid(row=4, column=1)
+    spin_speed_label = ttk.Label(frame, text='Spin Speed')
+    spin_speed_label.grid(row=5, column=1)
+
+    spin_button["command"] = lambda: handle_m3_spin_until_object(spin_direction_entry, spin_speed_entry, mqtt_sender)
+    
+
 
     return frame
 

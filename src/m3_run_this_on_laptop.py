@@ -72,21 +72,19 @@ def get_shared_frames(main_frame, mqtt_sender):
     beep_faster_frame = shared_gui.get_more_beep_frame(main_frame,mqtt_sender)
 
 
-    return teleop_frame, arm_frame, control_frame, beep_faster_frame
-
-
-
 def grid_frames(teleop_frame, arm_frame, control_frame, beep_faster_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
     beep_faster_frame.grid(row=3, column=0)
 
+    return teleop_frame, arm_frame, control_frame, beep_faster_frame
+
     #Local laptop GUI has been implemented
 
 
 #def handle_m3_beep_move():
-    #m3_frame = shared_gui.get_sound_frame(main_frame, mqtt_sender)
+ #   m3_frame = shared_gui.get_sound_frame(main_frame, mqtt_sender)
 
 
 

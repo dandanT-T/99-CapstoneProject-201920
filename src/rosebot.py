@@ -175,11 +175,19 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
+        color_sensor = self.sensor_system.color_sensor
+        self.go(speed, speed)
         while True:
-            if self.sensor_system.color_sensor.get_color_as_name() == color:
+            if type(color) is int:
+                current_color = color_sensor.get_color()
+            elif type(color) is str:
+                current_color = color_sensor.get_color_as_name()
+            print(color_sensor.get_color_as_name())
+
+            if current_color == color:
                 self.stop()
                 break
-            self.go(speed, speed)
+
 
     def go_straight_until_color_is_not(self, color, speed):
         """
