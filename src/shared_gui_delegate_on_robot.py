@@ -92,3 +92,8 @@ class Handler(object):
         print('quit')
         self.need_to_stop = True
 
+    def m3_beep_move(self):
+        print('moving fw and beeping')
+        self.robot.drive_system.go()
+         #   robot.sound_system.beeper.beep()
+          #  if robot.sensor_system.ir_proximity_sensor.get_distance() is

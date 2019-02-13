@@ -421,7 +421,7 @@ class SoundSystem(object):
         self.beeper = Beeper()
         self.tone_maker = ToneMaker()
         self.speech_maker = SpeechMaker()
-        # self.song_maker = SongMaker()
+        ##self.song_maker = SongMaker()
 
 ###############################################################################
 #    LEDSystem
