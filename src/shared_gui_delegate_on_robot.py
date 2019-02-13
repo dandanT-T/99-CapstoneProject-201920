@@ -104,3 +104,7 @@ class Handler(object):
     def m3_spin_until_object(self):
         print('spinning at set speed')
         self.robot.drive_system.spin_clockwise_until_sees_object()
+
+    def m3_line_intensity_follow(self):
+        print('following surface with intensity')
+        self.robot.drive_system

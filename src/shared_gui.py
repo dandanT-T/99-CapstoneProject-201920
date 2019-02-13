@@ -251,8 +251,20 @@ def spin_and_speed_frame(window, mqtt_sender):
     spin_speed_label.grid(row=5, column=1)
 
     spin_button["command"] = lambda: handle_m3_spin_until_object(spin_direction_entry, spin_speed_entry, mqtt_sender)
-    
 
+def line_intensity_follow(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Surface Light Intensity")
+    frame_label.grid(row=0, column=2)
+
+    line_light_intensity_entry = ttk.Frame(frame, width=9)
+    line_light_intensity_entry.grid(row=6, column=2)
+    line_light_intensity_label = ttk.Label(frame, text='Light Intensity Threshold')
+    line_light_intensity_label.grid(row=7, column=2)
+
+    intensity_button["command"] = lambda: handle_m3_line_intensity_follow(line_light_intensity_entry,mqtt_sender)
 
     return frame
 
@@ -396,6 +408,15 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
 def handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
     print('I am beeping')
     mqtt_sender.send_message('m3_beep_move',[])
+
+def handle_m3_spin_until_object(spin_direction_entry, spin_speed_entry, mqtt_sender):
+    print('I am spinning at set speed')
+    mqtt_sender.send_message('m3_spin_until_object', [])
+
+def handle_m3_line_intensity_follow(line_light_intensity_entry, mqtt_sender):
+    print('I am following surface with set light intensity')
+    mqtt_sender.send_message('m3_line_intensity_follow', [])
+
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
