@@ -94,14 +94,16 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
-        start = time.time()
+        # start = time.time()+1
+        time.sleep(seconds)
         self.go(speed, speed)
         # Note: using   time.sleep   to control the time to run is better.
         # We do it with a WHILE loop here for pedagogical reasons.
-        while True:
-            if time.time() - start+1 >= int(seconds):
-                self.stop()
-                break
+        # while True:
+            # if time.time() - start >= int(seconds):
+
+        # self.stop()
+        # break
 
     #Methods have been implemented for the drive control system
 
@@ -112,7 +114,7 @@ class DriveSystem(object):
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
         seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
-        seconds = abs(float(inches) * seconds_per_inch_at_100 / speed)
+        seconds = abs(int(inches) * seconds_per_inch_at_100 / speed)
         self.go_straight_for_seconds(seconds,speed)
 
 
@@ -122,13 +124,16 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-        for k in range(int(inches)):
-            self.right_motor.reset_position()
-            self.go(speed, speed)
-            while True:
-                self.right_motor.get_position()
-                if self.right_motor.get_position() > int(inches) * 10*360:
-                    break
+        # for k in range(int(inches)):
+        self.right_motor.reset_position()
+        self.go(speed, speed)
+        while True:
+            self.right_motor.get_position()
+            if self.right_motor.get_position() > 360:
+                break
+            else:
+                # self.go_backward_until_distance_is_greater_than(inches,speed)
+                break
         self.stop()
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
@@ -274,7 +279,7 @@ class DriveSystem(object):
 
     def display_camera_data(self):
         """
-        Displays on the GUI the Blob data of the Blob that the camera sees
+        Print on the Console the Blob data of the Blob that the camera sees
         (if any).
         """
         self.sensor_system.camera.get_biggest_blob()
@@ -637,8 +642,10 @@ class InfraredProximitySensor(object):
         in inches, where about 39.37 inches (which is 100 cm) means no object
         is within its field of vision.
         """
-        inches_per_cm = 2.54
-        return 48 * inches_per_cm * self.get_distance() / 100
+        cm_per_inch = 2.54
+        distance = (48/cm_per_inch)*self.get_distance()/100
+        print(distance)
+        return distance
 
 ###############################################################################
 # InfraredBeaconSensor
