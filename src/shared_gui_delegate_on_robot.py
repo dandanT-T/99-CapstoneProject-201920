@@ -64,7 +64,7 @@ class Handler(object):
         F = int(frequency)
         D = int(duration)
         print('i am singing')
-        self.robot.sound_system.tone_maker.play_tone(F,D)
+        self.robot.sound_system.tone_maker.play_tone(F,D).wait()
 
     def phrase(self,phrase):
         P = str(phrase)
