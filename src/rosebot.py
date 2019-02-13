@@ -247,9 +247,9 @@ class DriveSystem(object):
 
     def make_higher_tones_while_getting_closer(self,initial_frequency,rate_of_increase):
         dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        self.go(50,50)
         for k in range(dist/2):
             self.tone_maker.play_tone(initial_frequency,50+2*k*rate_of_increase)
+            self.go_straight_for_inches_using_time(2,50)
         self.stop()
 
 
