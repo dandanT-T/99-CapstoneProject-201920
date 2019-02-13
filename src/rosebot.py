@@ -130,7 +130,7 @@ class DriveSystem(object):
         self.right_motor.reset_position()
         self.go(speed, speed)
         while True:
-            if abs(self.right_motor.get_position()) > inches*self.wheel_circumference/360:
+            if abs(self.right_motor.get_position()) > inches*360/self.wheel_circumference:
                 break
         self.stop()
     # -------------------------------------------------------------------------
@@ -358,10 +358,10 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
         self.raise_arm()
-        position=self.motor.get_position()
+        self.motor.reset_position()
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position()==position-13*360:
+            if abs(self.motor.get_position())>=13*360:
                 self.motor.turn_off()
                 break
         self.motor.reset_position()
