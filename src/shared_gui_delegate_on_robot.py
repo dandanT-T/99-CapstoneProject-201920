@@ -44,11 +44,11 @@ class Handler(object):
 
     def go_straight_for_inches_using_time(self, inches,speed):
         print("going for inches by seconds", speed, inches)
-        self.robot.drive_system.go_straight_for_inches_using_time(inches, int(speed))
+        self.robot.drive_system.go_straight_for_inches_using_time(float(inches), int(speed))
 
     def go_straight_for_inches_using_encoder(self, inches,speed):
         print('going for inches by encoder', speed, inches)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(inches, int(speed))
+        self.robot.drive_system.go_straight_for_inches_using_encoder(float(inches), int(speed))
 
 
 
