@@ -129,7 +129,8 @@ class Handler(object):
             self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
         elif spin_direction == 'CCW':
             self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
-        self.m3_beep_move(initial_rate, rate_of_increase, speed)
+        self.m3_beep_move(speed,initial_rate=,rate_of_increase=)
+
 
     def m3_line_intensity_follow(self):
         print('following surface with intensity')

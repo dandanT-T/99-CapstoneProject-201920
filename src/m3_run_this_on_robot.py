@@ -18,9 +18,9 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     real_thing()
-    run_test_arm()
-    run_test_lower_arm()
-    run_test_calibrate()
+    #run_test_arm()
+    #run_test_lower_arm()
+    #run_test_calibrate()
 
 def real_thing():
     robot = rosebot.RoseBot()
