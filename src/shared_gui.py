@@ -44,9 +44,10 @@ def get_teleoperation_frame(window, mqtt_sender):
     left_speed_entry.insert(0, "100")
     right_speed_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
     right_speed_entry.insert(0, "100")
-    given_number_of_seconds_entry=ttk.Entry(frame,width=10)
-    given_number_of_inches_entry=ttk.Entry(frame,width=10)
     given_speed_entry=ttk.Entry(frame,width=10)
+
+    given_number_of_seconds_entry = ttk.Entry(frame, width=10)
+    given_number_of_inches_entry = ttk.Entry(frame, width=10)
 
     forward_button = ttk.Button(frame, text="Forward")
     backward_button = ttk.Button(frame, text="Backward")
@@ -212,6 +213,38 @@ def get_sound_frame(window,mqtt_sender):
 
     return frame
 
+def make_higher_tones_frame(window,mqtt_sender):
+    '''
+    Make a frame about individual frame in feature 9.
+    The robot should make tones as it moves, with the tones increasing in frequency as the robot gets closer to the
+    object. The user should be able to set the initial and rate of increase of the frequencies via the GUI.
+    :param main_frame:
+    :param mqtt_sender:
+    :return: frame
+    '''
+    make_tone_frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    make_tone_frame.grid()
+    make_tone_frame_label = ttk.Label(make_tone_frame, text="Frequency get higher when it is closer")
+    make_tone_frame_label.grid(row=0, column=1)
+
+    initial_frequency_label = ttk.Label(make_tone_frame, text="Initial Frequency")
+    initial_frequency_label.grid(row=1, column=0)
+    rate_of_increase_lable = ttk.Label(make_tone_frame, text="Rate of increase")
+    rate_of_increase_lable.grid(row=1, column=1)
+
+    initial_frequency_entry = ttk.Entry(make_tone_frame, width=9)
+    initial_frequency_entry.grid(row=2, column=0)
+    rate_of_increase_entry = ttk.Entry(make_tone_frame, width=9)
+    rate_of_increase_entry.grid(row=2, column=1)
+
+    make_higher_tones_when_get_closer_button = ttk.Button(make_tone_frame, text="Makes tones")
+    make_higher_tones_when_get_closer_button.grid(row=2, column=2)
+    make_higher_tones_when_get_closer_button["command"] = lambda: handle_higher_tones(initial_frequency_entry.get(),
+        rate_of_increase_entry.get(),mqtt_sender)
+    return make_tone_frame
+
+
+
 
 ###############################################################################
 ###############################################################################
@@ -221,7 +254,7 @@ def get_sound_frame(window,mqtt_sender):
 ###############################################################################
 
 ###############################################################################
-# Handlers for Buttons in the Teleoperation frame.
+# Handlers for Buttons in the Teleoperation frame.(Done by Kai)
 ###############################################################################
 def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -231,8 +264,8 @@ def handle_forward(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    print('Go forward',left_entry_box.get(),right_entry_box.get())
-    mqtt_sender.send_message("forward",[left_entry_box.get(),right_entry_box.get()])
+    print('Go forward', left_entry_box.get(),right_entry_box.get())
+    mqtt_sender.send_message("forward", [left_entry_box.get(),right_entry_box.get()])
 
 def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -242,8 +275,8 @@ def handle_backward(left_entry_box, right_entry_box, mqtt_sender):
       :type  right_entry_box:  ttk.Entry
       :type  mqtt_sender:      com.MqttClient
     """
-    print('Go backward',left_entry_box.get(),right_entry_box.get())
-    mqtt_sender.send_message("backward",[left_entry_box.get(),right_entry_box.get()])
+    print('Go backward',left_entry_box.get(), right_entry_box.get())
+    mqtt_sender.send_message("backward",[left_entry_box.get(), right_entry_box.get()])
 
 def handle_left(left_entry_box, right_entry_box, mqtt_sender):
     """
@@ -254,9 +287,9 @@ def handle_left(left_entry_box, right_entry_box, mqtt_sender):
       :type  mqtt_sender:      com.MqttClient
     """
     l = abs(int(left_entry_box.get()))
-    r=abs(int(right_entry_box.get()))
-    print('Go left',left_entry_box.get(),right_entry_box.get())
-    mqtt_sender.send_message("left",[-l,r])
+    r = abs(int(right_entry_box.get()))
+    print('Go left',left_entry_box.get(), right_entry_box.get())
+    mqtt_sender.send_message("left", [-l, r])
 
 
 def handle_right(left_entry_box, right_entry_box, mqtt_sender):
@@ -269,8 +302,8 @@ def handle_right(left_entry_box, right_entry_box, mqtt_sender):
     """
     l = abs(int(left_entry_box.get()))
     r=abs(int(right_entry_box.get()))
-    print('Go right',left_entry_box.get(),right_entry_box.get())
-    mqtt_sender.send_message("right",[l,-r])
+    print('Go right',left_entry_box.get(), right_entry_box.get())
+    mqtt_sender.send_message("right", [l, -r])
 
 
 def handle_stop(mqtt_sender):
@@ -283,16 +316,16 @@ def handle_stop(mqtt_sender):
 
 def handle_go_straight_for_seconds(given_number_of_seconds_entry,given_speed_entry,mqtt_sender):
     print("go_straight_for_seconds")
-    mqtt_sender.send_message("go_straight_for_seconds",[given_number_of_seconds_entry.get(),given_speed_entry.get()])
+    mqtt_sender.send_message("go_straight_for_seconds",[given_number_of_seconds_entry.get(), given_speed_entry.get()])
 
 def handle_go_straight_using_time_approach(given_number_of_inches_entry,given_speed_entry,mqtt_sender):
     print("go_straight_using_time_approach")
-    mqtt_sender.send_message("go_straight_for_inches_using_time",[given_number_of_inches_entry.get(),
+    mqtt_sender.send_message("go_straight_for_inches_using_time", [given_number_of_inches_entry.get(),
                                                                   given_speed_entry.get()])
 
 def handle_go_straight_using_encoder_approach(given_number_of_inches_entry,given_speed_entry,mqtt_sender):
     print("go_straight_using_encoder_approach")
-    mqtt_sender.send_message("go_straight_for_inches_using_encoder",[given_number_of_inches_entry.get(),
+    mqtt_sender.send_message("go_straight_for_inches_using_encoder", [given_number_of_inches_entry.get(),
                                                                   given_speed_entry.get()])
 ###next three done by Nelson Rainey###
 def handle_beep_for_times(number_of_times_entry,mqtt_sender):
@@ -371,3 +404,23 @@ def handle_exit(mqtt_sender):
     print('exit')
     handle_quit(mqtt_sender)
     exit()
+
+
+###############################################################################
+# Handlers for Buttons in the frequency_gets_higher_when_its_closer frame.
+###############################################################################
+def handle_higher_tones(initial_frequency,rate_of_increase,mqtt_sender):
+    '''
+    handle the message sent by the button and send the message to another function. Give a error when any of the entry
+    is blank
+    :param initial_frequency:
+    :param rate_of_increase:
+    :param mqtt_sender:
+    :return:
+    '''
+    if initial_frequency==None or rate_of_increase==None:
+        print("Error! Please enter a valid number")
+    else:
+        print("I am make tones with initial frequency of",initial_frequency," and rate of increase of",rate_of_increase)
+        mqtt_sender.send_message("make_higher_tones",[initial_frequency,rate_of_increase])
+
