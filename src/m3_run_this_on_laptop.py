@@ -196,7 +196,7 @@ def modular_pickup_frame(window, mqtt_sender):
     camera_pick_up_button.grid(row=5, column=2)
 
     lift_button["command"] = lambda: handle_m3_beep_move( initial_entry, rate_entry, speed_entry, mqtt_sender)
-    camera_pick_up_button["command"] = lambda: handle_m3_spin_until_object(mqtt_sender, initial_entry, rate_entry, speed_entry, direction_entry)
+    camera_pick_up_button["command"] = lambda: handle_m3_spin_until_object(direction_entry, speed_entry, mqtt_sender ,initial_entry, rate_entry)
 
     return frame
 
