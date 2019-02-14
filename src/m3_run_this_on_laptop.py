@@ -29,7 +29,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
-    root.title('CSSE 120 Capstone Project- Black Op')
+    root.title('Robot Operation Console')
 
 
     # -------------------------------------------------------------------------
@@ -108,7 +108,14 @@ def get_more_beep_frame(window, mqtt_sender):
     rate_of_increase_entry = ttk.Entry(frame, width=9)
     rate_of_increase_entry.grid(row=4, column=0)
 
-    beep_button["command"] = lambda: handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, mqtt_sender)
+    speed_entry = ttk.Entry(frame, width=9)
+    speed_entry.grid(row=4, column=1)
+    speed_label = ttk.Label(frame, text='Speed')
+    speed_label.grid(row=3, column=1)
+
+
+
+    beep_button["command"] = lambda: handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, speed_entry, mqtt_sender)
 
     return frame
 
@@ -126,12 +133,12 @@ def spin_and_speed_frame(window, mqtt_sender):
     spin_direction_label.grid(row=2, column=1)
 
     spin_speed_entry = ttk.Entry(frame, width=9)
-    spin_speed_entry.grid(row=4, column=1)
+    spin_speed_entry.grid(row=3, column=0)
     spin_speed_label = ttk.Label(frame, text='Spin Speed')
-    spin_speed_label.grid(row=5, column=1)
+    spin_speed_label.grid(row=2, column=0)
 
-    spin_button = ttk.Button(frame, text="Spin Direction w/ Speed")
-    spin_button.grid(row=5, column=0)
+    spin_button = ttk.Button(frame, text="Execute")
+    spin_button.grid(row=3, column=3)
 
     spin_button["command"] = lambda: handle_m3_spin_until_object(spin_direction_entry, spin_speed_entry, mqtt_sender)
 
@@ -143,24 +150,24 @@ def line_intensity_follow_frame(window, mqtt_sender):
     frame.grid()
 
     frame_label = ttk.Label(frame, text="Surface Light Intensity")
-    frame_label.grid(row=0, column=2)
+    frame_label.grid(row=0, column=5)
 
     line_light_intensity_entry = ttk.Frame(frame, width=9)
-    line_light_intensity_entry.grid(row=6, column=2)
+    line_light_intensity_entry.grid(row=6, column=5)
     line_light_intensity_label = ttk.Label(frame, text='Light Intensity Threshold')
-    line_light_intensity_label.grid(row=7, column=2)
+    line_light_intensity_label.grid(row=7, column=5)
 
     intensity_button = ttk.Button(frame, text='light intensity threshold')
-    intensity_button.grid(row=7, column=1)
+    intensity_button.grid(row=7, column=5)
 
     intensity_button["command"] = lambda: handle_m3_line_intensity_follow(line_light_intensity_entry,mqtt_sender)
 
     return frame
 
 
-def handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, mqtt_sender):
+def handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, speed_entry, mqtt_sender):
     print('I am beeping and moving')
-    mqtt_sender.send_message('m3_beep_move',[])
+    mqtt_sender.send_message('m3_beep_move',[initial_rate_entry.get(), rate_of_increase_entry.get(), speed_entry.get()])
 
 
 def handle_m3_spin_until_object(spin_direction_entry, spin_speed_entry, mqtt_sender):

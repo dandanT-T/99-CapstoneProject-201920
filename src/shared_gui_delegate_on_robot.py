@@ -95,18 +95,41 @@ class Handler(object):
     def make_higher_tones(self,initial_frequency,rate_of_increase):
         self.robot.drive_system.make_higher_tones_while_getting_closer(initial_frequency,rate_of_increase)
 
-    def m3_beep_move(self):
+    def m3_beep_move(self, speed, initial_rate, rate_of_increase):
         print('moving forward and beeping')
-        self.robot.drive_system.go()
+        import math
+        initial_rate = int(initial_rate)
+        rate_of_increase = int(rate_of_increase)
+        self.robot.drive_system.go(speed, speed)
+        while True:
+            if self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 2.5:
+                break
+            distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            beep_range = initial_rate + int(((rate_of_increase * 10/(math.sqrt(distance)))))
+            for k in range(beep_range):
+                self.robot.sound_system.beeper.beep()
+        self.robot.drive_system.stop()
+        self.robot.arm_and_claw.raise_arm()
 
+    def greater_intensity(self, intensity_entry):
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity_entry), 100)
+
+    def smaller_intensity(self, intensity_entry):
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity_entry), 100)
+
+    def color_true(self, color):
+        self.robot.drive_system.go_straight_until_color_is(color, 100)
+
+    def color_false(self, color):
+        self.robot.drive_system.go_straight_until_color_is_not(color, 100)
 
     def m3_spin_until_object(self, spin_direction, speed):
         print('spinning at set speed')
         if spin_direction == 'CW':
-            self.robot.drive_system.spin_clockwise_until_sees_object(speed)
+            self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
         elif spin_direction == 'CCW':
-            self.robot.drive_system.spin_counterclockwise_until_sees_object(speed)
-        self.m3_beep_move()
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
+        self.m3_beep_move(initial_rate, rate_of_increase, speed)
 
     def m3_line_intensity_follow(self):
         print('following surface with intensity')
