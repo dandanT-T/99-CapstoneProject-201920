@@ -96,11 +96,11 @@ class Handler(object):
         self.robot.drive_system.make_higher_tones_while_getting_closer(initial_frequency,rate_of_increase)
 
     def spin_clockwise_until_sees_object(self,speed):
-        self.robot.drive_system.spin_clockwise_until_sees_object(speed,400)
+        self.robot.drive_system.spin_clockwise_until_sees_object(int(speed),400)
         self.make_higher_tones(400,50)
 
     def spin_counterclockwise_until_sees_object(self,speed):
-        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,400)
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed),400)
         self.make_higher_tones(400,50)
 
     def m3_beep_move(self, speed, initial_rate, rate_of_increase):
