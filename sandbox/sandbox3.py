@@ -80,4 +80,3 @@ def surface_color_frame(window, mqtt_sender):
     smaller_intensity_button['command'] = lambda: handle_smaller_int(mqtt_sender, intensity_entry)
     is_color_button['command'] = lambda: handle_is_color(mqtt_sender, color_entry)
     is_not_color_button['command'] = lambda: handle_is_not_color(mqtt_sender, color_entry)
-    
