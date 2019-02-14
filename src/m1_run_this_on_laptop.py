@@ -43,7 +43,8 @@ def main():
     teleop_frame,arm_frame,control_frame,=get_shared_frames(main_frame,mqtt_sender)
     sound_frame=shared_gui.get_sound_frame(main_frame,mqtt_sender)
     tone_frame = shared_gui.make_higher_tones_frame(main_frame,mqtt_sender)
-    grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame)
+    find_grab_frame = find_and_grab_frame(main_frame,mqtt_sender)
+    grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame, find_grab_frame)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -53,7 +54,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,sound_frame,tone_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,sound_frame,tone_frame,find_grab_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -68,14 +69,33 @@ def get_shared_frames(main_frame, mqtt_sender):
     return teleop_frame, arm_frame, control_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame, find_and_grab_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=1)
     control_frame.grid(row=3,column=1)
     sound_frame.grid(row=1, column=0)
     tone_frame.grid(row=0, column=1)
+    find_and_grab_frame.grid(row=1, column=2)
 
     pass
+
+def find_and_grab_frame(main_frame,mqtt_sender):
+    frame = ttk.Frame(main_frame)
+    frame.grid()
+
+    frame_label = ttk.Label(frame,text='find and grab')
+    frame_label.grid(row=0,column=0)
+    grab_button = ttk.Button(frame, text='Finding an object and grab it')
+    grab_button.grid(row=1,column=0)
+
+    grab_button["command"] = lambda: handle_find_and_grab_frame(mqtt_sender)
+    return frame
+
+def handle_find_and_grab_frame(mqtt_sender):
+    print("I am find things any trying to grab it")
+    mqtt_sender.send_message("find_and_grab_frame")
+
+
 
 
 
