@@ -129,11 +129,8 @@ def handle_higher_tones(initial_frequency,rate_of_increase,mqtt_sender):
     :param mqtt_sender: mqtt_sender
     :return:
     '''
-    if initial_frequency==None or rate_of_increase==None:
-        print("Error! Please enter a valid number")
-    else:
-        print("I am make tones with initial frequency of",initial_frequency," and rate of increase of",rate_of_increase)
-        mqtt_sender.send_message("make_higher_tones",[initial_frequency,rate_of_increase])
+    print("I am make tones with initial frequency of",initial_frequency," and rate of increase of",rate_of_increase)
+    mqtt_sender.send_message("make_higher_tones",[initial_frequency,rate_of_increase])
 
 def get_camera_frame(window,mqtt_sender):
     '''
