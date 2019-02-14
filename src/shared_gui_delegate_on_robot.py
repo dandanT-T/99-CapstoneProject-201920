@@ -111,16 +111,16 @@ class Handler(object):
         self.robot.drive_system.stop()
         self.robot.arm_and_claw.raise_arm()
 
-    def greater_intensity(self, intensity_entry):
+    def m3_greater_intensity(self, intensity_entry):
         self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity_entry), 100)
 
-    def smaller_intensity(self, intensity_entry):
+    def m3_smaller_intensity(self, intensity_entry):
         self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity_entry), 100)
 
-    def color_true(self, color):
+    def m3_color_true(self, color):
         self.robot.drive_system.go_straight_until_color_is(color, 100)
 
-    def color_false(self, color):
+    def m3_color_false(self, color):
         self.robot.drive_system.go_straight_until_color_is_not(color, 100)
 
     def m3_spin_until_object(self, spin_direction, speed, area):
@@ -134,4 +134,4 @@ class Handler(object):
 
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')
-    #     self.robot.drive_system
+    #     self.robot.drive_systempy
