@@ -129,15 +129,15 @@ class Handler(object):
     def color_false(self, color):
         self.robot.drive_system.go_straight_until_color_is_not(color, 100)
 
-    # def m3_spin_until_object(self, spin_direction, speed):
-    #     print('spinning at set speed')
-    #     if spin_direction == 'CW':
-    #         self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
-    #     elif spin_direction == 'CCW':
-    #         self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
-    #     self.m3_beep_move(speed,initial_rate=,rate_of_increase=)
-    #
-    #
+    def m3_spin_until_object(self, spin_direction, speed, area):
+         print('spinning at set speed')
+         if spin_direction == 'CW':
+             self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+         elif spin_direction == 'CCW':
+             self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
+         self.m3_beep_move(speed,initial_rate=50,rate_of_increase=10)
+
+
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')
     #     self.robot.drive_system
