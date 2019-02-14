@@ -263,22 +263,32 @@ class DriveSystem(object):
 
 
     # -------------------------------------------------------------------------
-    # Methods for driving that use the infrared beacon sensor.
+    # Methods for driving that use the infrared beacon sensor.(finished these two but haven't tested them- Kai)
     # -------------------------------------------------------------------------
 
-    def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed):
+    def spin_clockwise_until_beacon_heading_is_nonnegative(self, speed,area):
         """
         Spins clockwise at the given speed until the heading to the Beacon
         is nonnegative.  Requires that the user turn on the Beacon.
         """
+        while True:
+            B = self.sensor_system.camera.get_biggest_blob()
+            self.go(speed, -speed)
+            if B.get_area() > area:
+                break
 
 
 
-    def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed):
+    def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed,area):
         """
         Spins counter-clockwise at the given speed until the heading to the Beacon
         is nonnegative.  Requires that the user turn on the Beacon.
         """
+        while True:
+            B = self.sensor_system.camera.get_biggest_blob()
+            self.go(-speed, speed)
+            if B.get_area() > area:
+                break
 
     def go_straight_to_the_beacon(self, inches, speed):
         """
