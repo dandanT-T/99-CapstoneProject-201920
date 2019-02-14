@@ -82,7 +82,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, modular_frame,surface_fr
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
-    modular_frame.grid(row=3, column=2)
+    modular_frame.grid(row=1, column=2)
     surface_frame.grid(row=0, column=2)
     #spin_speed_frame.grid(row=4, column=0)
     #surface_light_frame.grid(row=5, column=0)
