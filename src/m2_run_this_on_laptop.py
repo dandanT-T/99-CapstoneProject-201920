@@ -154,10 +154,31 @@ def get_camera_frame(window,mqtt_sender):
     spin_clockwise_button.grid(row=2,column=0)
     spin_counterclockwise_button.grid(row=2,column=2)
 
-    point_to_robot_button=ttk.Button(frame,text="Point straight to the box")
-    point_to_robot_button.grid(row=3,column=1)
 
+    spin_clockwise_button["command"]=lambda: handle_spin_clockwise(speed_of_spin_entry.get(),mqtt_sender)
+    spin_counterclockwise_button["command"]=lambda : handle_spin_counterclockwise(speed_of_spin_entry.get(),mqtt_sender)
     return frame
+
+def handle_spin_clockwise(speed,mqtt_sender):
+    '''
+    let the robot spin clockwise towards the object
+    :param speed: int
+    :param mqtt_sender: mqtt_sender
+    :return: None
+    '''
+    print("camera spin clockwise")
+    mqtt_sender.send_message("spin_clockwise_until_sees_object",[speed])
+
+def handle_spin_counterclockwise(speed,mqtt_sender):
+    '''
+    let the robot spin counterclockwise towards the object
+    :param speed: int
+    :param mqtt_sender: mqtt_sender
+    :return: None
+    '''
+    print("camera spin counterclockwise")
+    mqtt_sender.send_message("spin_counterclockwise_until_sees_object",[speed])
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
