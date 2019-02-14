@@ -97,9 +97,11 @@ class Handler(object):
 
     def spin_clockwise_until_sees_object(self,speed):
         self.robot.drive_system.spin_clockwise_until_sees_object(speed,400)
+        self.make_higher_tones(400,50)
 
     def spin_counterclockwise_until_sees_object(self,speed):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,400)
+        self.make_higher_tones(400,50)
 
     def m3_beep_move(self, speed, initial_rate, rate_of_increase):
         print('moving forward and beeping')
