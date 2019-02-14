@@ -51,11 +51,13 @@ def main():
     # -------------------------------------------------------------------------
     # DO: Implement and call get_my_frames(...)
     tones_frame=make_higher_tones_frame(main_frame,mqtt_sender)
+    camera_frame=get_camera_frame(main_frame,mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
     tones_frame.grid(row=1, column=1)
+    camera_frame.grid(row=2,column=1)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -122,9 +124,9 @@ def handle_higher_tones(initial_frequency,rate_of_increase,mqtt_sender):
     '''
     handle the message sent by the button and send the message to another function. Give a error when any of the entry
     is blank
-    :param initial_frequency:
-    :param rate_of_increase:
-    :param mqtt_sender:
+    :param initial_frequency: int
+    :param rate_of_increase: int
+    :param mqtt_sender: mqtt_sender
     :return:
     '''
     if initial_frequency==None or rate_of_increase==None:
@@ -132,6 +134,33 @@ def handle_higher_tones(initial_frequency,rate_of_increase,mqtt_sender):
     else:
         print("I am make tones with initial frequency of",initial_frequency," and rate of increase of",rate_of_increase)
         mqtt_sender.send_message("make_higher_tones",[initial_frequency,rate_of_increase])
+
+def get_camera_frame(window,mqtt_sender):
+    '''
+    provide the camera frame for the GUI
+    :param window: ttk.frame
+    :param mqtt_sender: mqtt_sender
+    :return: None
+    '''
+    frame=ttk.Frame(window,padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+    frame_label=ttk.Label(frame,text="Camera Control")
+    frame_label.grid(row=0,column=1)
+
+    speed_of_spin_label = ttk.Label(frame, text="Speed of spin")
+    speed_of_spin_label.grid(row=1, column=1)
+    speed_of_spin_entry=ttk.Entry(frame,width=9)
+    speed_of_spin_entry.grid(row=2,column=1)
+
+    spin_clockwise_button=ttk.Button(frame,text="Camera spins clockwise")
+    spin_counterclockwise_button=ttk.Button(frame,text="Camera spins counterclockwise")
+    spin_clockwise_button.grid(row=2,column=0)
+    spin_counterclockwise_button.grid(row=2,column=2)
+
+    point_to_robot_button=ttk.Button(frame,text="Point straight to the box")
+    point_to_robot_button.grid(row=3,column=1)
+
+    return frame
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
