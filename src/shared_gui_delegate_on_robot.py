@@ -6,6 +6,8 @@
     Yu Xin, Kirk Preston, Nelson Rainey and Zhicheng Kai.
   Winter term, 2018-2019.
 """
+import math
+
 class Handler(object):
     def __init__(self,robot):
         """
@@ -103,9 +105,8 @@ class Handler(object):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed),400)
         self.make_higher_tones(400,50)
 
-    def m3_beep_move(self, speed, initial_rate, rate_of_increase):
+    def m3_beep_move(self, initial_rate, rate_of_increase, speed):
         print('moving forward and beeping')
-        import math
         initial_rate = int(initial_rate)
         rate_of_increase = int(rate_of_increase)
         self.robot.drive_system.go(speed, speed)
@@ -131,13 +132,13 @@ class Handler(object):
     def m3_color_false(self, color):
         self.robot.drive_system.go_straight_until_color_is_not(color, 100)
 
-    def m3_spin_until_object(self, spin_direction, speed, area):
-         print('spinning at set speed')
-         if spin_direction == 'CW':
-             self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
-         elif spin_direction == 'CCW':
-             self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
-         self.m3_beep_move(speed,initial_rate=50,rate_of_increase=10)
+    def m3_spin_until_object(self, spin_direction, speed):
+        print('spinning at set speed')
+        if spin_direction == 'CW':
+            self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), 200)
+        elif spin_direction == 'CCW':
+            self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), 200)
+        self.m3_beep_move(1, 1, int(speed))
 
 
     # def m3_line_intensity_follow(self):

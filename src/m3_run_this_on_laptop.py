@@ -181,7 +181,7 @@ def modular_pickup_frame(window, mqtt_sender):
     rate_entry = ttk.Entry(frame, width=9)
 
     lift_button = ttk.Button(frame, text='Lift Object')
-    camera_pick_up_button = ttk.Button(frame, text='Lift Object')
+    camera_pick_up_button = ttk.Button(frame, text='Camera Lift Object')
 
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=1, column=0)
@@ -196,7 +196,7 @@ def modular_pickup_frame(window, mqtt_sender):
     camera_pick_up_button.grid(row=5, column=2)
 
     lift_button["command"] = lambda: handle_m3_beep_move( initial_entry, rate_entry, speed_entry, mqtt_sender)
-    camera_pick_up_button["command"] = lambda: handle_m3_spin_until_object(direction_entry, speed_entry, mqtt_sender ,initial_entry, rate_entry)
+    camera_pick_up_button["command"] = lambda: handle_m3_spin_until_object(direction_entry, speed_entry, mqtt_sender)
 
     return frame
 
@@ -261,9 +261,9 @@ def handle_m3_beep_move(initial_entry, rate_entry, speed_entry, mqtt_sender):
     mqtt_sender.send_message('m3_beep_move',[initial_entry.get(), rate_entry.get(), speed_entry.get()])
 
 
-def handle_m3_spin_until_object(direction_entry, speed_entry, mqtt_sender, initial_entry, rate_entry):
+def handle_m3_spin_until_object(direction_entry, speed_entry, mqtt_sender):
     print('I am spinning at set speed')
-    mqtt_sender.send_message('m3_spin_until_object', [direction_entry.get(), speed_entry.get(), initial_entry.get(), rate_entry.get()])
+    mqtt_sender.send_message('m3_spin_until_object', [direction_entry.get(), speed_entry.get()])
 
 
 '''def handle_m3_line_intensity_follow(line_light_intensity_entry, mqtt_sender):
