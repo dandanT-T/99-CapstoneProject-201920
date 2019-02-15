@@ -93,7 +93,7 @@ def find_and_grab_frame(main_frame,mqtt_sender):
 
 def handle_find_and_grab_frame(mqtt_sender):
     print("I am find things any trying to grab it")
-    mqtt_sender.send_message("find_and_grab_frame")
+    mqtt_sender.send_message("spin_and_find")
 
 
 

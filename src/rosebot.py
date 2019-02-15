@@ -37,6 +37,7 @@ class RoseBot(object):
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
+        self.f_and_g = f_and_g(self.sensor_system,self.sound_system,self.drive_system,self.arm_and_claw)
 
 ###############################################################################
 #    DriveSystem
@@ -278,7 +279,6 @@ class DriveSystem(object):
                 break
 
 
-
     def spin_counterclockwise_until_beacon_heading_is_nonpositive(self, speed,area):
         """
         Spins counter-clockwise at the given speed until the heading to the Beacon
@@ -316,12 +316,15 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+        self.go(speed, -speed)
         while True:
             B = self.sensor_system.camera.get_biggest_blob()
-            self.go(speed,-speed)
-            if B.get_area()>area:
+            print(B)
+            time.sleep(0.03)
+            if B.get_area() >= area:
                 self.stop()
                 break
+
 
 
 
@@ -1039,3 +1042,31 @@ class BeaconButton(object):
 ###############################################################################
 class BrickButton(object):
     pass
+
+###############################################################################
+# Sprint 2
+###############################################################################
+class f_and_g(object):
+
+    def __init__(self, sensor_system,sound_system,drive_system,arm_and_claw):
+        """
+        Stores the given SensorSystem object.
+        Constructs two Motors (for the left and right wheels).
+          :type sensor_system:  SensorSystem
+          :type sound_system: SoundSystem
+          :type drive_system: DriveSystem
+          :type arm_and_claw: ArmAndClaw
+        """
+        self.drive_system = drive_system
+        self.sensor_system = sensor_system
+        self.sound_system = sound_system
+        self.arm_and_claw = arm_and_claw
+        self.left_motor = Motor('B')
+        self.right_motor = Motor('C')
+
+    def spin_and_find(self):
+        self.drive_system.spin_clockwise_until_sees_object(30,10)
+        frequency = 400
+        f_step = 50
+        self.drive_system.make_higher_tones_while_getting_closer(frequency,f_step)
+        self.arm_and_claw.calibrate_arm()

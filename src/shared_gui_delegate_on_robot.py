@@ -139,6 +139,10 @@ class Handler(object):
              self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
          self.m3_beep_move(speed,initial_rate=50,rate_of_increase=10)
 
+    def spin_and_find(self):
+        print('spin and find object')
+        self.robot.f_and_g.spin_and_find()
+
 
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')
