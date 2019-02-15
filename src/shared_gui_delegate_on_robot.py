@@ -7,6 +7,7 @@
   Winter term, 2018-2019.
 """
 import math
+import random
 
 class Handler(object):
     def __init__(self,robot):
@@ -150,28 +151,28 @@ class Handler(object):
             self.raise_arm()
         elif a==2:
             print("You get the second function!")
-            self.calibrate_arm()
+            self.move_arm_to_position(random.randint(1,5000))
         elif a==3:
             print("You get the third function!")
-            self.go_straight_for_seconds(5,90)
+            self.go_straight_for_seconds(random.randint(3,7),random.randint(80,100))
         elif a==4:
             print("You get the fourth function!")
-            self.go_straight_for_inches_using_time(10,30)
+            self.go_straight_for_inches_using_time(random.randint(5,15),random.randint(50,100))
         elif a==5:
             print("You get the fifth function!")
-            self.beeping(3)
+            self.beeping(random.randint(1,6))
         elif a==6:
             print("You get the sixth function!")
-            self.tone(500,200)
+            self.tone(random.randint(300,1500),random.randint(70,250))
         elif a==7:
             print("You get the seventh function!")
             self.phrase("Hello World!")
         elif a==8:
             print("You get the eighth function!")
-            self.make_higher_tones(500,50)
+            self.make_higher_tones(random.randint(300,1000),random.randint(30,100))
         else:
             print("You get the ninth function!")
-            self.spin_counterclockwise_until_sees_object(50)
+            self.spin_counterclockwise_until_sees_object(random.randint(30,70))
 
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')
