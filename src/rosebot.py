@@ -474,6 +474,42 @@ class LEDSystem(object):
         self.left_led = LED("left")
         self.right_led = LED("right")
 
+
+    def flash_left(self,flash_rate):
+        t = flash_rate/100
+        self.left_led.turn_on()
+        time.sleep(t)
+        self.left_led.turn_off()
+        time.sleep(t)
+        self.right_led.turn_on()
+        time.sleep(t)
+        self.right_led.turn_off()
+
+    def flash_right(self,flash_rate):
+        t = flash_rate/100
+        self.right_led.turn_on()
+        time.sleep(t)
+        self.right_led.turn_off()
+        time.sleep(t)
+        self.left_led.turn_on()
+        time.sleep(t)
+        self.left_led.turn_off()
+
+    def flash_both(self,flash_rate):
+        t = flash_rate/100
+        self.right_led.turn_on()
+        time.sleep(t)
+        self.left_led.turn_on()
+        time.sleep(t)
+        self.right_led.turn_off()
+        time.sleep(t)
+        self.left_led.turn_off()
+
+    def flash_off(self):
+        self.left_led.turn_off()
+        self.right_led.turn_off()
+
+
 ###############################################################################
 #    BeaconSystem
 ###############################################################################

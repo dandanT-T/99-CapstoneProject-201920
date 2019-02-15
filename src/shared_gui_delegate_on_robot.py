@@ -57,6 +57,56 @@ class Handler(object):
 
 ### Arm & Claw Shared Delegate- Nelson ###
 
+    def feature_9(self,speed, length, frequency):
+        print('got to feature 9')
+        print(speed,length, frequency)
+        self.robot.drive_system.go(speed,speed)
+        while True:
+            D = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            self.robot.led_system.flash_left(frequency)
+            self.robot.led_system.flash_right(frequency)
+            self.robot.led_system.flash_both(frequency)
+            frequency = frequency - 1
+            if frequency < 1:
+                frequency = 10
+            if D < length:
+                self.robot.led_system.flash_off()
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
+
+
+    def left_flash(self, flash_rate):
+        R = int(flash_rate)
+        print('i am flashing left')
+        self.robot.led_system.flash_left(R)
+
+    def right_flash(self, flash_rate):
+        R = int(flash_rate)
+        print(' i am flashing right')
+        self.robot.led_system.flash_right(R)
+
+    def both_flash(self, flash_rate):
+        R = int(flash_rate)
+        print('i am flashing both')
+        self.robot.led_system.flash_both(R)
+
+    def LED_off(self):
+        print('turning off')
+        self.robot.led_system.flash_off()
+
+    def getting_blob(self):
+        print('getting blob')
+        self.robot.drive_system.display_camera_data()
+
+    def spin_clockwise_until_sees_object(self,speed,area):
+        print('spinning clockwise')
+        self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+
+    def spin_counterclockwise_until_sees_object(self,speed,area):
+        print('spinning counterclockwise')
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,area)
+
     def beeping(self,number):
         N = int(number)
         print('i am beeping')
