@@ -144,6 +144,25 @@ class Handler(object):
         print('spin and find object')
         self.robot.f_and_g.spin_and_find()
 
+    def m2_random_functions(self,a):
+        if a==1:
+            self.raise_arm()
+        elif a==2:
+            self.calibrate_arm()
+        elif a==3:
+            self.go_straight_for_seconds(5,90)
+        elif a==4:
+            self.go_straight_for_inches_using_time(10,30)
+        elif a==5:
+            self.beeping(3)
+        elif a==6:
+            self.tone(500,200)
+        elif a==7:
+            self.phrase("Hello World!")
+        elif a==8:
+            self.make_higher_tones(500,50)
+        else:
+            self.spin_counterclockwise_until_sees_object(50)
 
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')

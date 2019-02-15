@@ -11,6 +11,7 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
+import random
 
 
 def main():
@@ -52,12 +53,14 @@ def main():
     # DO: Implement and call get_my_frames(...)
     tones_frame=make_higher_tones_frame(main_frame,mqtt_sender)
     camera_frame=get_camera_frame(main_frame,mqtt_sender)
+    random_frame=get_random_frame(main_frame,mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
     tones_frame.grid(row=1, column=1)
     camera_frame.grid(row=2,column=1)
+    random_frame.grid(row=0,column=2)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -179,6 +182,33 @@ def handle_spin_counterclockwise(speed,mqtt_sender):
     print("camera spin counterclockwise")
     mqtt_sender.send_message("spin_counterclockwise_until_sees_object",[speed])
 
+def get_random_frame(window,mqtt_sender):
+    '''
+    establish a new frame for random functions
+    :param window: ttk.frame
+    :param mqtt_sender: mqtt_sender
+    :return: None
+    '''
+    main_frame=ttk.Frame(window,padding=10, borderwidth=5, relief="ridge")
+    main_frame.grid()
+    frame_label=ttk.Label(main_frame,text="Random Choosing Functions")
+    frame_label.grid(row=0,column=1)
+
+    random_functions_button=ttk.Button(main_frame,text="Random functions!!")
+    random_functions_button.grid(row=1,column=1)
+    random_functions_button["command"]=lambda :handle_random_functions(mqtt_sender)
+
+    return main_frame
+
+def handle_random_functions(mqtt_sender):
+    '''
+    send messages to random functions in delegate
+    :param mqtt_sender: mqtt_sender
+    :return: None
+    '''
+    print("doing random things")
+    a=random.randint(1,10)
+    mqtt_sender.send_message("m2_random_functions",[a])
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
