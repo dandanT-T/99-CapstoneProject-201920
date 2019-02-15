@@ -30,6 +30,8 @@ def main():
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
     root.title('C$$E120 Capstone project,1819')
+    # bgColor = "#EDEDED"
+    # root.configure(bg=bgColor)
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -44,7 +46,8 @@ def main():
     sound_frame=shared_gui.get_sound_frame(main_frame,mqtt_sender)
     tone_frame = shared_gui.make_higher_tones_frame(main_frame,mqtt_sender)
     find_grab_frame = find_and_grab_frame(main_frame,mqtt_sender)
-    grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame, find_grab_frame)
+    Turtle_frame = turtle_frame(main_frame,mqtt_sender)
+    grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame, find_grab_frame,Turtle_frame)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -54,7 +57,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,sound_frame,tone_frame,find_grab_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,sound_frame,tone_frame,find_grab_frame,Turtle_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -69,13 +72,14 @@ def get_shared_frames(main_frame, mqtt_sender):
     return teleop_frame, arm_frame, control_frame
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame, find_and_grab_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,sound_frame,tone_frame, find_and_grab_frame,new):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=1)
     control_frame.grid(row=3,column=1)
     sound_frame.grid(row=1, column=0)
     tone_frame.grid(row=0, column=1)
     find_and_grab_frame.grid(row=1, column=2)
+    new.grid(row=2,column=2)
 
     pass
 
@@ -94,8 +98,26 @@ def find_and_grab_frame(main_frame,mqtt_sender):
 def handle_find_and_grab_frame(mqtt_sender):
     print("I am find things any trying to grab it")
     mqtt_sender.send_message("spin_and_find")
+########################################################
+# srint 3 project try
+########################################################
+def turtle_frame(window,mqtt_sender):
+    frame = ttk.Frame(window,padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
 
+    turtle_lable = ttk.Label(frame,text='Turtle mode')
+    turtle_button = ttk.Button(frame,text='start')
 
+    turtle_lable.grid(row=0, column=0)
+    turtle_button.grid(row=1, column=0)
+
+    turtle_button["command"] = lambda: handle_turtle_frame(mqtt_sender)
+
+    return frame
+
+def handle_turtle_frame(mqtt_sender):
+    print("I am a rose turtle now")
+    mqtt_sender.send_message("rose_turtle")
 
 
 
