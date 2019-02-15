@@ -146,22 +146,31 @@ class Handler(object):
 
     def m2_random_functions(self,a):
         if a==1:
+            print("You get the first function!")
             self.raise_arm()
         elif a==2:
+            print("You get the second function!")
             self.calibrate_arm()
         elif a==3:
+            print("You get the third function!")
             self.go_straight_for_seconds(5,90)
         elif a==4:
+            print("You get the fourth function!")
             self.go_straight_for_inches_using_time(10,30)
         elif a==5:
+            print("You get the fifth function!")
             self.beeping(3)
         elif a==6:
+            print("You get the sixth function!")
             self.tone(500,200)
         elif a==7:
+            print("You get the seventh function!")
             self.phrase("Hello World!")
         elif a==8:
+            print("You get the eighth function!")
             self.make_higher_tones(500,50)
         else:
+            print("You get the ninth function!")
             self.spin_counterclockwise_until_sees_object(50)
 
     # def m3_line_intensity_follow(self):
