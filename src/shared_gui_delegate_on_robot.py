@@ -224,6 +224,15 @@ class Handler(object):
             print("You get the ninth function!")
             self.spin_counterclockwise_until_sees_object(random.randint(30,70))
 
+    def m1_turtle_turn(self, degree):
+        print('I am turning.')
+        self.robot.RoseTurtle.turn(degree)
+
+    def m1_turtle_square(self,length,speed):
+        print('I am drawing a square')
+        while self.robot.RoseTurtle.square(float(length),int(speed)) is True:
+            self.need_to_stop = True
+
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')
     #     self.robot.drive_systempy

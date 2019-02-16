@@ -38,6 +38,7 @@ class RoseBot(object):
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
         self.f_and_g = f_and_g(self.sensor_system,self.sound_system,self.drive_system,self.arm_and_claw)
+        self.RoseTurtle = RoseTurtle(self.sensor_system,self.sound_system,self.drive_system,self.arm_and_claw)
 
 ###############################################################################
 #    DriveSystem
@@ -128,6 +129,35 @@ class DriveSystem(object):
         while True:
             if abs(self.right_motor.get_position()) > inches*360/self.wheel_circumference:
                 break
+        self.stop()
+
+    def m1_turning(self,degree):
+        """
+        Make the robot turning a certain angle
+        """
+
+        distance_from_center_to_wheel = 3.2
+        distance_turned = int(degree)*math.pi/180*distance_from_center_to_wheel
+        speed_of_turning = self.wheel_circumference/360
+        self.right_motor.reset_position()
+        left_wheel_speed = 30
+        right_wheel_speed = - left_wheel_speed
+
+
+        self.go(left_wheel_speed,right_wheel_speed)
+        while True:
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 5:
+                for k in range(2):
+                    self.sound_system.beeper.beep().wait()
+                self.sound_system.speech_maker.speak("Scared me")
+                self.stop()
+                break
+            if abs(self.right_motor.get_position()) >=  distance_turned/speed_of_turning:
+                break
+
+        if degree >= 360 * 5:
+            self.sound_system.speech_maker.speak("I'm too dizzy")
+
         self.stop()
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
@@ -345,11 +375,41 @@ class DriveSystem(object):
                 self.stop()
                 break
 
+# -------------------------------------------------------------------------
+# Methods for drawing shapes. (by m1_Zhicheng Kai)
+# -------------------------------------------------------------------------
+    def draw_a_square(self,length,speed):
+        k = 1
+        self.right_motor.reset_position()
+
+        while k <= 4:
+            self.go(speed, speed)
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 5:
+                self.stop()
+                self.go(-abs(speed), -abs(speed))
+                self.sound_system.speech_maker.speak("Do you wanna kill me, I will not go anymore")
+                self.stop()
+                break
+            if abs(self.right_motor.get_position()) >= length * 360 / self.wheel_circumference:
+                self.stop()
+                time.sleep(1)
+                self.m1_turning(90)
+                k = k + 1
+        self.stop()
+
+
+
+    def draw_a_circle(self,radius, time):
+        self.right_motor.reset_position()
+        left_wheel_distance = 2*radius*math.pi
+        right_wheel_distance = 2*(radius + 6.4)*math.pi
+        self.go(left_wheel_distance/time,right_wheel_distance/time)
 
 
 ###############################################################################
 #    ArmAndClaw
 ###############################################################################
+
 class ArmAndClaw(object):
     """ Controls the robot's arm and claw (which operate together). """
     # -------------------------------------------------------------------------
@@ -715,7 +775,7 @@ class InfraredProximitySensor(object):
         """
         cm_per_inch = 2.54
         distance = (48/cm_per_inch)*self.get_distance()/100
-        print(distance)
+
         return distance
 
 ###############################################################################
@@ -830,6 +890,8 @@ class Camera(object):
 ###############################################################################
 # Point (for the Camera class, as well as for general purposes.
 ###############################################################################
+
+
 class Point(object):
     def __init__(self, x, y):
         self.x = x
@@ -884,6 +946,8 @@ class Blob(object):
 ###############################################################################
 # Beeper
 ###############################################################################
+
+
 class Beeper(object):
     # Future enhancements: Add volume to all the SoundSystem classes.
     def __init__(self):
@@ -1109,3 +1173,45 @@ class f_and_g(object):
         f_step = 50
         self.drive_system.make_higher_tones_while_getting_closer(frequency,f_step)
         self.arm_and_claw.calibrate_arm()
+
+
+###############################################################################
+# Sprint 2_m1
+###############################################################################
+
+
+class RoseTurtle(object):
+
+    def __init__(self, sensor_system,sound_system,drive_system,arm_and_claw):
+        """
+        Stores the given SensorSystem object.
+        Constructs two Motors (for the left and right wheels).
+          :type sensor_system:  SensorSystem
+          :type sound_system: SoundSystem
+          :type drive_system: DriveSystem
+          :type arm_and_claw: ArmAndClaw
+
+
+        """
+        self.drive_system = drive_system
+        self.sensor_system = sensor_system
+        self.sound_system = sound_system
+        self.arm_and_claw = arm_and_claw
+        self.left_motor = Motor('B')
+        self.right_motor = Motor('C')
+
+    def turn(self,degree):
+        self.drive_system.m1_turning(int(degree))
+
+
+
+
+
+    def square(self,length,speed):
+        self.drive_system.draw_a_square(length,speed)
+
+    def circle(self,radius,time):
+        self.drive_system.draw_a_circle(radius,time)
+
+
+    # def
