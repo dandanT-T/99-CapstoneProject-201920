@@ -7,6 +7,7 @@
   Winter term, 2018-2019.
 """
 import math
+import random
 
 class Handler(object):
     def __init__(self,robot):
@@ -55,6 +56,56 @@ class Handler(object):
 
 
 ### Arm & Claw Shared Delegate- Nelson ###
+
+    def feature_9(self,speed, length, frequency):
+        print('got to feature 9')
+        print(speed,length, frequency)
+        self.robot.drive_system.go(speed,speed)
+        while True:
+            D = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            self.robot.led_system.flash_left(frequency)
+            self.robot.led_system.flash_right(frequency)
+            self.robot.led_system.flash_both(frequency)
+            frequency = frequency - 1
+            if frequency < 1:
+                frequency = 10
+            if D < length:
+                self.robot.led_system.flash_off()
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                break
+
+
+    def left_flash(self, flash_rate):
+        R = int(flash_rate)
+        print('i am flashing left')
+        self.robot.led_system.flash_left(R)
+
+    def right_flash(self, flash_rate):
+        R = int(flash_rate)
+        print(' i am flashing right')
+        self.robot.led_system.flash_right(R)
+
+    def both_flash(self, flash_rate):
+        R = int(flash_rate)
+        print('i am flashing both')
+        self.robot.led_system.flash_both(R)
+
+    def LED_off(self):
+        print('turning off')
+        self.robot.led_system.flash_off()
+
+    def getting_blob(self):
+        print('getting blob')
+        self.robot.drive_system.display_camera_data()
+
+    def spin_clockwise_until_sees_object(self,speed,area):
+        print('spinning clockwise')
+        self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+
+    def spin_counterclockwise_until_sees_object(self,speed,area):
+        print('spinning counterclockwise')
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed,area)
 
     def beeping(self,number):
         N = int(number)
@@ -140,6 +191,47 @@ class Handler(object):
             self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), 200)
         self.m3_beep_move(1, 1, int(speed))
 
+    def spin_and_find(self):
+        print('spin and find object')
+        self.robot.f_and_g.spin_and_find()
+
+    def m2_random_functions(self,a):
+        if a==1:
+            print("You get the first function!")
+            self.raise_arm()
+        elif a==2:
+            print("You get the second function!")
+            self.move_arm_to_position(random.randint(1,5000))
+        elif a==3:
+            print("You get the third function!")
+            self.go_straight_for_seconds(random.randint(3,7),random.randint(80,100))
+        elif a==4:
+            print("You get the fourth function!")
+            self.go_straight_for_inches_using_time(random.randint(5,15),random.randint(50,100))
+        elif a==5:
+            print("You get the fifth function!")
+            self.beeping(random.randint(1,6))
+        elif a==6:
+            print("You get the sixth function!")
+            self.tone(random.randint(300,1500),random.randint(70,250))
+        elif a==7:
+            print("You get the seventh function!")
+            self.phrase("Hello World!")
+        elif a==8:
+            print("You get the eighth function!")
+            self.make_higher_tones(random.randint(300,1000),random.randint(30,100))
+        else:
+            print("You get the ninth function!")
+            self.spin_counterclockwise_until_sees_object(random.randint(30,70))
+
+    def m1_turtle_turn(self, degree):
+        print('I am turning.')
+        self.robot.RoseTurtle.turn(degree)
+
+    def m1_turtle_square(self,length,speed):
+        print('I am drawing a square')
+        while self.robot.RoseTurtle.square(float(length),int(speed)) is True:
+            self.need_to_stop = True
 
     # def m3_line_intensity_follow(self):
     #     print('following surface with intensity')
