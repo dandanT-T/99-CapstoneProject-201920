@@ -8,7 +8,7 @@ import tkinter
 from tkinter import ttk
 import shared_gui
 
-def modular_pickup_frame(window, mqtt_sender):
+'''def modular_pickup_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
     frame.grid()
 
@@ -79,4 +79,64 @@ def surface_color_frame(window, mqtt_sender):
     greater_intensity_button['command'] = lambda: handle_greater_int(mqtt_sender, intensity_entry)
     smaller_intensity_button['command'] = lambda: handle_smaller_int(mqtt_sender, intensity_entry)
     is_color_button['command'] = lambda: handle_is_color(mqtt_sender, color_entry)
-    is_not_color_button['command'] = lambda: handle_is_not_color(mqtt_sender, color_entry)
+    is_not_color_button['command'] = lambda: handle_is_not_color(mqtt_sender, color_entry)'''
+
+
+########################################################################################################################
+
+#### All code within the def real thing fall here, while loops to control internal timer and constant intensity measure
+
+def real_thing():
+    robot = rosebot.RoseBot()
+    delegate = shared_gui_delegate_on_robot.Handler(robot)
+    mqtt_reciever = com.MqttClient(delegate)
+    mqtt_reciever.connect_to_pc()
+
+    while True:
+        # if delegate.stop():
+        #     break
+        time.sleep(0.1)
+
+    while True:
+        start = time.time()
+        threshold = 60
+        if self.sensor_system.color_sensor.get_reflected_light_intensity() > int(intensity): ### Pass in a set intensity
+            ##### Insert Intensity beep function here
+            self.m3_beep_on_intensity()
+            if time.time() - start > threshold:
+                self.m3_robot_die()
+                self.m3_reset_game()
+            else:
+
+
+
+#### All code here represents the function: beep on intensity...., audible feedback alerting user to intensity change
+
+def m3_beep_on_intensity():
+    if self.sensor_system.get_reflected_light_intensity() > int(intensity): ### Might be a redundant conditional statement
+        beeper = Beeper()
+        beeper.beep() ### I only need it to beep twice in succession and then stop
+
+#### This is the robot death sequence
+
+def m3_robot_die():
+    self.drive_system.stop()
+    phrase = 'I am burning up on this lava, cant take the heat, life fading'
+    self.speech_maker.speak(phrase)
+    self.raise_arm()
+    self.lower_arm()
+
+#### this is the function that resets the game, merely alerts player to move robot back to desirable surface,
+def m3_reset_game():
+    while True:
+        phrase = 'Please move me to a darker surface'
+        self.speech_maker.speak(phrase)
+        time.sleep(10)
+        if self.sensor_system.get_reflected_light_intensity() < int(intensity): #### There's going to be a set intensity
+            break
+
+    ### perhaps after this I should call main to restart the game??? ####
+
+
+
+
