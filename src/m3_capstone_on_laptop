@@ -98,9 +98,37 @@ def controller_frame(window, mqtt_sender):
     ####these buttons are for controlling the robot####
 
     #### Interprets the Keyboard ####
-    frame.bind('<Any-KeyPress>', frame.when_pressed)
-    frame.bind('<Any-KeyPress>', frame.when_released)
-    frame.bind('<1>', lambda event: frame.focus_set())
+    frame.bind_all('<Key-w>', lambda event: forward(mqtt_sender, speed_entry))
+    frame.bind_all('<Key-s>', lambda event: backward(mqtt_sender, speed_entry))
+    frame.bind_all('<Key-a>', lambda event: left(mqtt_sender, speed_entry))
+    frame.bind_all('<Key-d>', lambda event: right(mqtt_sender, speed_entry))
+    frame.bind_all('<Key-space>', lambda event: stop(mqtt_sender))
+
+
+
+    def forward(mqtt_sender, speedBox):
+        print("go forward")
+        speed = speedBox.get()
+        mqtt_sender.send_message('forward',[speed])
+
+    def backward(mqtt_sender, speedBox):
+        print("go backward")
+        speed = speedBox.get()
+        mqtt_sender.send_message('backward', [speed])
+
+    def left(mqtt_sender, speedBox):
+        print("going left")
+        speed = speedBox.get()
+        mqtt_sender.send_message('left',[speed])
+
+    def right(mqtt_sender, speedBox):
+        print("going right")
+        speed = speedBox.get()
+        mqtt_sender.send_message('right',[speed])
+
+    def stop(mqtt_sender):
+        print('stopping...')
+        mqtt_sender.send_message('stop')
 
     w_button = ttk.Button(frame, text='W Forward', width=9)
     a_button = ttk.Button(frame, text='A Left', width=9)
@@ -127,29 +155,19 @@ def controller_frame(window, mqtt_sender):
     quit_game_button.grid(row=10, column=1)
     reset_game_button.grid(row=11, column=1)
 
-    set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
+    #set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
     quit_game_button["command"] = lambda: handle_quit(mqtt_sender)
     reset_game_button["command"] = lambda: handle_m3_game_reset(mqtt_sender) ###simply call the robot die function
 
 
-    greater_intensity_button['command'] = lambda: handle_m3_greater_intensity(mqtt_sender, intensity_entry)
-    smaller_intensity_button['command'] = lambda: handle_m3_smaller_intensity(mqtt_sender, intensity_entry)
+    #greater_intensity_button['command'] = lambda: handle_m3_greater_intensity(mqtt_sender, intensity_entry)
+    #smaller_intensity_button['command'] = lambda: handle_m3_smaller_intensity(mqtt_sender, intensity_entry)
 
     return frame
 
 def handle_release():
     #handles the key releases with movements
     speed = 0
-
-
-
-def when_pressed(frame, event):
-    alpha = {
-        'w': frame.handle_go_forward(frame, )
-        'a': frame.handle_left(frame, )
-        's': frame.handle_backward(frame, )
-        'd': frame.handle_right(frame, )
-    }
 
 def when_released(frame, event):
     frame.handle_release(frame.mqtt_client)
@@ -162,7 +180,6 @@ def handle_quit(mqtt_sender):
     print('Quitting Game')
     mqtt_sender.send_message('m3_robot_die')
     mqtt_sender.send_message('quit')
-    
 
 def handle_m3_greater_intensity(mqtt_sender, intensity_entry):
     print('This color has intensity')
