@@ -197,8 +197,8 @@ class Handler(object):
 
 #m3 Kirk Preston Capstone Functions
 
-    def m3_beep_on_intensity(self, intensity=100):
-        if self.robot.sensor_system.get_reflected_light_intensity() > intensity:  ### Might be a redundant conditional statement
+    def m3_beep_on_intensity(self, color_threshold):
+        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold:  ### Might be a redundant conditional statement
             beeper = self.robot.sound_system.beeper.beep()
             beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
 
