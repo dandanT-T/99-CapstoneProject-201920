@@ -199,7 +199,7 @@ class Handler(object):
 #m3 Kirk Preston Capstone Functions
 
     def m3_beep_on_intensity(self, color_threshold):
-        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold:  ### Might be a redundant conditional statement
+        if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() > color_threshold:  ### Might be a redundant conditional statement
             beeper = self.robot.sound_system.beeper.beep()
             beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
 
@@ -216,7 +216,7 @@ class Handler(object):
             phrase = 'Please move me to a darker surface'
             self.robot.sound_system.speech_maker.speak(phrase)
             time.sleep(10)
-            if self.robot.sensor_system.get_reflected_light_intensity() < intensity:  #### There's going to be a set intensity
+            if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() < intensity:  #### There's going to be a set intensity
                 break
 
     def m3_game_parameters(self, speed, timer_countdown, color_threshold):
