@@ -303,3 +303,11 @@ class Handler(object):
         print('I am drawing a square')
         while self.robot.RoseTurtle.square(float(length),int(speed)) is True:
             self.need_to_stop = True
+
+    def m1_turtle_circle(self,radius,time):
+        print('I am drawing a circle')
+        self.robot.RoseTurtle.circle(int(radius),float(time))
+
+    # def m3_line_intensity_follow(self):
+    #     print('following surface with intensity')
+    #     self.robot.drive_systempy

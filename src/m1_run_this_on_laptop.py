@@ -11,6 +11,8 @@ import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
 import shared_gui
+import math
+
 import rosegraphics as rg
 
 
@@ -23,13 +25,14 @@ def main():
     # -------------------------------------------------------------------------
     # Construct and connect the MQTT Client:
     # -------------------------------------------------------------------------
-    mqtt_sender = com.MqttClient()
+    root = tkinter.Tk()
+    delegate = Delegate_on_laptop(root)
+    mqtt_sender = com.MqttClient(delegate)
     mqtt_sender.connect_to_ev3()
-
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
-    root = tkinter.Tk()
+
     root.title('C$$E120 Capstone project,1819')
     # bgColor = "#EDEDED"
     # root.configure(bg=bgColor)
@@ -118,8 +121,10 @@ def turtle_frame(main_frame, mqtt_sender):
     turn_entry = ttk.Entry(frame, width=8)
     draw_square_length_entry = ttk.Entry(frame, width=8)
     draw_square_speed_entry = ttk.Entry(frame, width=8)
-    draw_circle_radius_spin = ttk.Spinbox(values=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
-    draw_circle_time_spin = ttk.Spinbox(values=(20, 23, 25, 26, 27, 29))
+    draw_circle_radius_spin = ttk.Spinbox(frame,values=(50, 60, 70, 80, 90))
+    # draw_circle_radius_spin.pack()
+    draw_circle_time_spin = ttk.Spinbox(frame, values=(2 * math.pi))
+    # draw_circle_time_spin.pack()
 
     turn_button = ttk.Button(frame, text='turn')
     draw_square_button = ttk.Button(frame, text='draw a square')
@@ -136,15 +141,15 @@ def turtle_frame(main_frame, mqtt_sender):
     draw_square_button.grid(row=4, column=2)
     draw_circle_radius_label.grid(row=5, column=0)
     draw_circle_time_label.grid(row=5, column=1)
-    draw_circle_radius_spin.grid(row=6, column=0)
-    draw_circle_time_spin.grid(row=6, column=1)
-    draw_circle_button.grid(row=6, column=2)
+    draw_circle_radius_spin.grid(row=6, column=0, columnspan=4)
+    draw_circle_time_spin.grid(row=7, column=0, columnspan=4)
+    draw_circle_button.grid(row=8, column=1)
 
     turn_button["command"] = lambda: handle_turn_frame(mqtt_sender,turn_entry)
     draw_square_button["command"] = lambda: handle_draw_square_button(mqtt_sender,draw_square_length_entry,
                                                                       draw_square_speed_entry)
     draw_circle_button["command"] = lambda: handle_draw_circle_button(mqtt_sender,draw_circle_radius_spin,
-                                                                      draw_circle_radius_spin)
+                                                                      draw_circle_time_spin)
 
 
 
@@ -153,16 +158,25 @@ def turtle_frame(main_frame, mqtt_sender):
 
 def handle_turn_frame(mqtt_sender,turn_entry):
     print("I am turing")
-    mqtt_sender.send_message("m1_turtle_turn",[turn_entry.get()])
 
 
 def handle_draw_square_button(mqtt_sender,draw_square_length_entry,draw_square_speed_entry):
     print("I am drawing a square")
     mqtt_sender.send_message("m1_turtle_square",[draw_square_length_entry.get(),draw_square_speed_entry.get()])
 
-def handle_draw_circle_button(mqtt_sender,draw_square_length_entry,draw_square_speed_entry):
-    print("I am drawing a square")
-    mqtt_sender.send_message("m1_turtle_square",[draw_square_length_entry.get(),draw_square_speed_entry.get()])
+
+def handle_draw_circle_button(mqtt_sender, draw_circle_radius_spin, draw_circle_time_spin):
+    print("I am drawing a circle")
+    mqtt_sender.send_message("m1_turtle_circle",[draw_circle_radius_spin.get(), draw_circle_time_spin.get()])
+
+
+#
+class Delegate_on_laptop(object):
+    def __init__(self, root):
+        self.root = root
+
+    def quit(self):
+        self.root.quit()
 
 
 
