@@ -7,6 +7,10 @@
   Winter term, 2018-2019.
 """
 
+
+#### THIS FILE IS DONE
+#### NO MORE ACTION REQUIRED
+
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
@@ -190,10 +194,6 @@ def handle_m3_spin_until_object(direction_entry, speed_entry, mqtt_sender):
     print('I am spinning at set speed')
     mqtt_sender.send_message('m3_spin_until_object', [direction_entry.get(), speed_entry.get()])
 
-
-'''def handle_m3_line_intensity_follow(line_light_intensity_entry, mqtt_sender):
-    print('I am following surface with set light intensity')
-    mqtt_sender.send_message('m3_line_intensity_follow', [])'''
 
 
 
