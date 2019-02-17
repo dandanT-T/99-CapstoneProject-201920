@@ -116,15 +116,13 @@ def controller_frame(window, mqtt_sender):
         print("go backward")
         mqtt_sender.send_message('m3_backward', [speed_entry.get()])
 
-    def m3_left(mqtt_sender, speedBox):
+    def m3_left(mqtt_sender, speed_entry):
         print("going left")
-        speed = speedBox.get()
-        mqtt_sender.send_message('m3_left',[speed])
+        mqtt_sender.send_message('m3_left',[speed_entry.get()])
 
-    def m3_right(mqtt_sender, speedBox):
+    def m3_right(mqtt_sender, speed_entry):
         print("going right")
-        speed = speedBox.get()
-        mqtt_sender.send_message('m3_right',[speed])
+        mqtt_sender.send_message('m3_right',[speed_entry.get()])
 
     def m3_stop(mqtt_sender):
         print('stopping...')
@@ -182,27 +180,6 @@ def handle_m3_start_game(mqtt_sender):
     print('Initializing Game...')
     mqtt_sender.send_message('m3_start_game')
 
-##### Game Functions ####
-'''def m3_robot_die(self):
-    self.robot.drive_system.stop()
-    phrase = 'Surface is too bright. Shutting Down.'
-    self.robot.sound_system.speech_maker.speak(phrase)
-    self.raise_arm()
-    self.lower_arm()
-
-
-def m3_beep_on_intensity(self, color_threshold_entry):
-    while True:
-        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold_entry.get():
-            beeper = self.robot.sound_system.beeper.beep(2)
-            beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
-
-def m3_game_code(self, color_threshold_entry, timer_countdown_entry):
-    start = time.time()
-    while True:
-        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold_entry.get():
-            if start + time.time() > timer_countdown_entry.get():
-                m3_robot_die(self)'''
 
 
 

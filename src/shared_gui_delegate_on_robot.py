@@ -219,16 +219,6 @@ class Handler(object):
             if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() < intensity:  #### There's going to be a set intensity
                 break
 
-    def m3_game_parameters(self, speed, timer_countdown, color_threshold):
-        self.speed = int(speed)
-        self.timer_countdown = int(timer_countdown)
-        self.color_threshold = int(color_threshold)
-
-    def m3_start_game(self):
-        print('Starting the game')
-        m3_extra.m3_start_game(self.robot, self)
-
-
     def m3_forward(self, speed):
         print("go forward", speed, speed)
         self.robot.drive_system.go(int(speed), int(speed))
@@ -249,8 +239,14 @@ class Handler(object):
         print('stopping...')
         self.robot.drive_system.stop()
 
+    def m3_game_parameters(self, speed, timer_countdown, color_threshold):
+        self.speed = int(speed)
+        self.timer_countdown = int(timer_countdown)
+        self.color_threshold = int(color_threshold)
 
-
+    def m3_start_game(self):
+        print('Starting the game')
+        m3_extra.m3_start_game(self.robot, self)
 
 ##################################################################################################################################
 
