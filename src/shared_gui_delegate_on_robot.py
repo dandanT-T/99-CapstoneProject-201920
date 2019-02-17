@@ -223,6 +223,26 @@ class Handler(object):
         self.timer_countdown = int(timer_countdown)
         self.color_threshold = int(color_threshold)
 
+    def m3_forward(self, speed):
+        print("go forward", speed, speed)
+        self.robot.drive_system.go(int(speed), int(speed))
+
+    def m3_backward(self, speed):
+        print("go backward", speed, speed)
+        self.robot.drive_system.go(int(speed)*-1, int(speed)*-1)
+
+    def m3_left(self, speed):
+        print("going left", speed, speed)
+        self.robot.drive_system.go(int(speed), int(speed))
+
+    def m3_right(self, speed):
+        print("going right", speed, speed)
+        self.robot.drive_system.go(int(speed), int(speed))
+
+    def m3_stop(self):
+        print('stopping...')
+        self.robot.drive_system.stop()
+
 
 
 
