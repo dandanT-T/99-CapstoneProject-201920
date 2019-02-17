@@ -8,6 +8,7 @@
 """
 import math
 import random
+import time
 
 class Handler(object):
     def __init__(self,robot):
@@ -214,8 +215,12 @@ class Handler(object):
             phrase = 'Please move me to a darker surface'
             self.robot.sound_system.speech_maker.speak(phrase)
             time.sleep(10)
-            if self.robot.sensor_system.get_reflected_light_intensity() < (intensity):  #### There's going to be a set intensity
+            if self.robot.sensor_system.get_reflected_light_intensity() < intensity:  #### There's going to be a set intensity
                 break
+
+    #def m3_set_parameters(self):
+
+
 
 ##################################################################################################################################
 

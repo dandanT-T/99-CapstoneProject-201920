@@ -155,22 +155,13 @@ def controller_frame(window, mqtt_sender):
     quit_game_button.grid(row=11, column=1)
     reset_game_button.grid(row=12, column=1)
 
-    #set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
+    set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
     quit_game_button["command"] = lambda: handle_quit(mqtt_sender)
     reset_game_button["command"] = lambda: handle_m3_game_reset(mqtt_sender) ###simply call the robot die function
 
-
-    #greater_intensity_button['command'] = lambda: handle_m3_greater_intensity(mqtt_sender, intensity_entry)
-    #smaller_intensity_button['command'] = lambda: handle_m3_smaller_intensity(mqtt_sender, intensity_entry)
-
     return frame
 
-def handle_release():
-    #handles the key releases with movements
-    speed = 0
-
-def when_released(frame, event):
-    frame.handle_release(frame.mqtt_client)
+######## Handler Functions ##########
 
 def handle_m3_game_reset(mqtt_sender):
     print('This game is being reset')
