@@ -209,6 +209,7 @@ class Handler(object):
         self.lower_arm()
 
     def m3_reset_game(self, intensity=100):
+        self.m3_robot_die()
         while True:
             phrase = 'Please move me to a darker surface'
             self.robot.sound_system.speech_maker.speak(phrase)
