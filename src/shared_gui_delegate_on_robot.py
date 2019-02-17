@@ -8,6 +8,7 @@
 """
 import math
 import random
+import time
 
 class Handler(object):
     def __init__(self,robot):
@@ -156,6 +157,8 @@ class Handler(object):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed),400)
         self.make_higher_tones(400,50)
 
+##############################################################################################################################3
+
     def m3_beep_move(self, initial_rate, rate_of_increase, speed):
         print('moving forward and beeping')
         initial_rate = int(initial_rate)
@@ -190,6 +193,60 @@ class Handler(object):
         elif spin_direction == 'CCW':
             self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), 200)
         self.m3_beep_move(1, 1, int(speed))
+#############################################################################################################################
+
+#m3 Kirk Preston Capstone Functions
+
+    def m3_beep_on_intensity(self, color_threshold):
+        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold:  ### Might be a redundant conditional statement
+            beeper = self.robot.sound_system.beeper.beep()
+            beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
+
+    def m3_robot_die(self):
+        self.robot.drive_system.stop()
+        phrase = 'I am burning up on this lava, cant take the heat, life fading'
+        self.robot.sound_system.speech_maker.speak(phrase)
+        self.raise_arm()
+        self.lower_arm()
+
+    def m3_reset_game(self, intensity=100):
+        self.m3_robot_die()
+        while True:
+            phrase = 'Please move me to a darker surface'
+            self.robot.sound_system.speech_maker.speak(phrase)
+            time.sleep(10)
+            if self.robot.sensor_system.get_reflected_light_intensity() < intensity:  #### There's going to be a set intensity
+                break
+
+    def m3_game_parameters(self, speed, timer_countdown, color_threshold):
+        self.speed = int(speed)
+        self.timer_countdown = int(timer_countdown)
+        self.color_threshold = int(color_threshold)
+
+    def m3_forward(self, speed):
+        print("go forward", speed, speed)
+        self.robot.drive_system.go(int(speed), int(speed))
+
+    def m3_backward(self, speed):
+        print("go backward", speed, speed)
+        self.robot.drive_system.go(int(speed)*-1, int(speed)*-1)
+
+    def m3_left(self, speed):
+        print("going left", speed, speed)
+        self.robot.drive_system.go(int(0), int(speed))
+
+    def m3_right(self, speed):
+        print("going right", speed, speed)
+        self.robot.drive_system.go(int(speed), int(0))
+
+    def m3_stop(self):
+        print('stopping...')
+        self.robot.drive_system.stop()
+
+
+
+
+##################################################################################################################################
 
     def spin_and_find(self):
         print('spin and find object')
@@ -223,6 +280,17 @@ class Handler(object):
         else:
             print("You get the ninth function!")
             self.spin_counterclockwise_until_sees_object(random.randint(30,70))
+
+    def m2_find_color_and_grab(self,color):
+        self.robot.arm_and_claw.calibrate_arm()
+        while True:
+            self.robot.drive_system.spin_clockwise_until_sees_object(50,1000)
+            if self.robot.sensor_system.color_sensor.get_color()==color:
+                distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+                self.robot.drive_system.go_straight_for_inches_using_time(distance,50)
+                self.robot.arm_and_claw.move_arm_to_position(2000)
+                break
+
 
     def m1_turtle_turn(self, degree):
         print('I am turning.')
