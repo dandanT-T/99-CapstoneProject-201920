@@ -138,3 +138,18 @@ def when_pressed(frame, event):
 
 def when_released(frame, event):
     frame.handle_release(frame.mqtt_client)
+
+
+def run_test_arm():
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.raise_arm()
+
+
+def run_test_lower_arm():
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.lower_arm()
+
+
+def run_test_calibrate():
+    robot = rosebot.RoseBot()
+    robot.arm_and_claw.calibrate_arm()
