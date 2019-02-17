@@ -233,11 +233,11 @@ class Handler(object):
 
     def m3_left(self, speed):
         print("going left", speed, speed)
-        self.robot.drive_system.go(int(speed), int(speed))
+        self.robot.drive_system.go(int(0), int(speed))
 
     def m3_right(self, speed):
         print("going right", speed, speed)
-        self.robot.drive_system.go(int(speed), int(speed))
+        self.robot.drive_system.go(int(speed), int(0))
 
     def m3_stop(self):
         print('stopping...')
