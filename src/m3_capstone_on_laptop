@@ -130,9 +130,9 @@ def controller_frame(window, mqtt_sender):
         print('stopping...')
         mqtt_sender.send_message('stop')
 
-    w_button = ttk.Button(frame, text='W Forward', width=9)
+    w_button = ttk.Button(frame, text='W Forward', width=11)
     a_button = ttk.Button(frame, text='A Left', width=9)
-    s_button = ttk.Button(frame, text='S Backward', width=9)
+    s_button = ttk.Button(frame, text='S Backward', width=11)
     d_button = ttk.Button(frame, text='D Right', width=9)
 
     # Controller Button Placement
@@ -148,12 +148,12 @@ def controller_frame(window, mqtt_sender):
     set_parameters_button.grid(row=2, column=1)
     color_threshold_label.grid(row=3, column=0)
     color_threshold_entry.grid(row=4, column=0)
-    timer_countdown_label.grid(row=3, column=2)
-    timer_countdown_entry.grid(row=4, column=2)
+    timer_countdown_label.grid(row=2, column=2)
+    timer_countdown_entry.grid(row=3, column=2)
     ### Possible Turn Speed Button
     ### Possible Turn Speed Button
-    quit_game_button.grid(row=10, column=1)
-    reset_game_button.grid(row=11, column=1)
+    quit_game_button.grid(row=11, column=1)
+    reset_game_button.grid(row=12, column=1)
 
     #set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
     quit_game_button["command"] = lambda: handle_quit(mqtt_sender)
