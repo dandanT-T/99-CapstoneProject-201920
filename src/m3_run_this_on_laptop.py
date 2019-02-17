@@ -72,8 +72,7 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     modular_frame = modular_pickup_frame(main_frame,mqtt_sender)
     surface_frame = surface_color_frame(main_frame, mqtt_sender)
-    #spin_speed_frame = spin_and_speed_frame(main_frame, mqtt_sender)
-    #surface_light_frame = line_intensity_follow_frame(main_frame, mqtt_sender)
+
 
     return teleop_frame, arm_frame, control_frame, modular_frame, surface_frame
 
@@ -84,87 +83,13 @@ def grid_frames(teleop_frame, arm_frame, control_frame, modular_frame,surface_fr
     control_frame.grid(row=2, column=0)
     modular_frame.grid(row=1, column=2)
     surface_frame.grid(row=0, column=2)
-    #spin_speed_frame.grid(row=4, column=0)
-    #surface_light_frame.grid(row=5, column=0)
+
 
 
     #Local laptop GUI has been implemented
 
 
-'''def get_more_beep_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
-    frame.grid()
 
-    frame_label = ttk.Label(frame, text="Beep with Proximity")
-    frame_label.grid(row=0, column=1)
-
-    initial_rate_entry = ttk.Entry(frame, width=9)
-    initial_rate_entry.grid(row=2, column=0)
-    initial_beeps_per_second_label = ttk.Label(frame, text="Initial Rate")
-    initial_beeps_per_second_label.grid(row=1, column=0)
-    beep_button = ttk.Button(frame, text="Beep at given rate")
-    beep_button.grid(row=2, column=2)
-
-    rate_of_increase_label = ttk.Label(frame, text="Rate of Increase")
-    rate_of_increase_label.grid(row=3, column=0)
-    rate_of_increase_entry = ttk.Entry(frame, width=9)
-    rate_of_increase_entry.grid(row=4, column=0)
-
-    speed_entry = ttk.Entry(frame, width=9)
-    speed_entry.grid(row=4, column=1)
-    speed_label = ttk.Label(frame, text='Speed')
-    speed_label.grid(row=3, column=1)
-
-
-
-    beep_button["command"] = lambda: handle_m3_beep_move(initial_rate_entry, rate_of_increase_entry, speed_entry, mqtt_sender)
-
-    return frame'''
-
-
-'''def spin_and_speed_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
-    frame.grid()
-
-    frame_label = ttk.Label(frame, text="Spin and Speed")
-    frame_label.grid(row = 0, column=1)
-
-    spin_direction_entry = ttk.Entry(frame, width=9)
-    spin_direction_entry.grid(row=3, column=1)
-    spin_direction_label = ttk.Label(frame, text='Spin Direction')
-    spin_direction_label.grid(row=2, column=1)
-
-    spin_speed_entry = ttk.Entry(frame, width=9)
-    spin_speed_entry.grid(row=3, column=0)
-    spin_speed_label = ttk.Label(frame, text='Spin Speed')
-    spin_speed_label.grid(row=2, column=0)
-
-    spin_button = ttk.Button(frame, text="Execute")
-    spin_button.grid(row=3, column=3)
-
-    spin_button["command"] = lambda: handle_m3_spin_until_object(spin_direction_entry, spin_speed_entry, mqtt_sender)
-
-    return frame'''
-
-
-'''def line_intensity_follow_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
-    frame.grid()
-
-    frame_label = ttk.Label(frame, text="Surface Light Intensity")
-    frame_label.grid(row=0, column=5)
-
-    line_light_intensity_entry = ttk.Frame(frame, width=9)
-    line_light_intensity_entry.grid(row=6, column=5)
-    line_light_intensity_label = ttk.Label(frame, text='Light Intensity Threshold')
-    line_light_intensity_label.grid(row=7, column=5)
-
-    intensity_button = ttk.Button(frame, text='light intensity threshold')
-    intensity_button.grid(row=7, column=5)
-
-    intensity_button["command"] = lambda: handle_m3_line_intensity_follow(line_light_intensity_entry,mqtt_sender)
-
-    return frame'''
 def modular_pickup_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief='groove')
     frame.grid()

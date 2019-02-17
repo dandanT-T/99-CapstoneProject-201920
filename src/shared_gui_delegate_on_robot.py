@@ -156,6 +156,8 @@ class Handler(object):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed),400)
         self.make_higher_tones(400,50)
 
+##############################################################################################################################3
+
     def m3_beep_move(self, initial_rate, rate_of_increase, speed):
         print('moving forward and beeping')
         initial_rate = int(initial_rate)
@@ -190,6 +192,31 @@ class Handler(object):
         elif spin_direction == 'CCW':
             self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), 200)
         self.m3_beep_move(1, 1, int(speed))
+#############################################################################################################################
+
+#m3 Kirk Preston Capstone Functions
+
+    def m3_beep_on_intensity(self, intensity=100):
+        if self.robot.sensor_system.get_reflected_light_intensity() > intensity:  ### Might be a redundant conditional statement
+            beeper = self.robot.sound_system.beeper.beep()
+            beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
+
+    def m3_robot_die(self):
+        self.robot.drive_system.stop()
+        phrase = 'I am burning up on this lava, cant take the heat, life fading'
+        self.robot.sound_system.speech_maker.speak(phrase)
+        self.raise_arm()
+        self.lower_arm()
+
+    def m3_reset_game(self, intensity=100):
+        while True:
+            phrase = 'Please move me to a darker surface'
+            self.robot.sound_system.speech_maker.speak(phrase)
+            time.sleep(10)
+            if self.robot.sensor_system.get_reflected_light_intensity() < (intensity):  #### There's going to be a set intensity
+                break
+
+##################################################################################################################################
 
     def spin_and_find(self):
         print('spin and find object')
@@ -232,7 +259,3 @@ class Handler(object):
         print('I am drawing a square')
         while self.robot.RoseTurtle.square(float(length),int(speed)) is True:
             self.need_to_stop = True
-
-    # def m3_line_intensity_follow(self):
-    #     print('following surface with intensity')
-    #     self.robot.drive_systempy
