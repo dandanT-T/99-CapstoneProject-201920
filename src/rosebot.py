@@ -13,6 +13,7 @@
 import ev3dev.ev3 as ev3
 import time
 import math
+import mqtt_remote_method_calls as com
 
 
 ###############################################################################
@@ -32,8 +33,7 @@ class RoseBot(object):
         # Use these instance variables
         self.sensor_system = SensorSystem()
         self.sound_system = SoundSystem()
-        self.led_system = LEDSystem()
-        self.drive_system = DriveSystem(self.sensor_system,self.sound_system)
+        self.drive_system = DriveSystem(self.sensor_system,self.sound_system,None)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
@@ -61,7 +61,7 @@ class DriveSystem(object):
     #          (i.e., left motor goes at speed -S, right motor at speed S).
     # -------------------------------------------------------------------------
 
-    def __init__(self, sensor_system,sound_system):
+    def __init__(self, sensor_system,sound_system,mqtt_sender):
         """
         Stores the given SensorSystem object.
         Constructs two Motors (for the left and right wheels).
@@ -70,8 +70,10 @@ class DriveSystem(object):
         """
         self.sensor_system = sensor_system
         self.sound_system = sound_system
+        self.mqtt_sender = mqtt_sender
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
+
 
         self.wheel_circumference = 1.3 * math.pi
 
@@ -86,12 +88,10 @@ class DriveSystem(object):
         self.left_motor.turn_on(left_wheel_speed)
         self.right_motor.turn_on(right_wheel_speed)
 
-
     def stop(self):
         """ Stops the left and right wheel motors. """
         self.left_motor.turn_off()
         self.right_motor.turn_off()
-
 
     def go_straight_for_seconds(self, seconds, speed):
         """
@@ -102,9 +102,7 @@ class DriveSystem(object):
 
         time.sleep(seconds) # space for doing nothing else for these seconds
         self.stop()
-
-
-    #Methods have been implemented for the drive control system
+## Methods have been implemented for the drive control system
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -115,7 +113,6 @@ class DriveSystem(object):
         seconds_per_inch_at_100 = 10.0  # 1 sec = 10 inches at 100 speed
         seconds = abs(int(inches) * seconds_per_inch_at_100 / speed)
         self.go_straight_for_seconds(seconds,speed)
-
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -142,7 +139,6 @@ class DriveSystem(object):
         self.right_motor.reset_position()
         left_wheel_speed = 30
         right_wheel_speed = - left_wheel_speed
-
 
         self.go(left_wheel_speed,right_wheel_speed)
         while True:
@@ -176,7 +172,6 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
@@ -187,8 +182,6 @@ class DriveSystem(object):
             if self.sensor_system.color_sensor.get_reflected_light_intensity() > int(intensity):
                 self.stop()
                 break
-
-
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -217,7 +210,6 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
@@ -232,11 +224,10 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
     # -------------------------------------------------------------------------
-    ### Proximity sensor implementation- Kirk Preston ###
+    ### Proximity sensor implementation- Kirk Preston ###sssssssssss
 
     def go_forward_until_distance_is_less_than(self, inches, speed):
         """
@@ -358,10 +349,6 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-
-
-
-
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
@@ -386,9 +373,11 @@ class DriveSystem(object):
             self.go(speed, speed)
             if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= 5:
                 self.stop()
+                # self.led_system.turn_on(RED)
                 self.go(-abs(speed), -abs(speed))
                 self.sound_system.speech_maker.speak("Do you wanna kill me, I will not go anymore")
                 self.stop()
+                self.mqtt_sender.send_message("quit")
                 break
             if abs(self.right_motor.get_position()) >= length * 360 / self.wheel_circumference:
                 self.stop()
@@ -397,13 +386,16 @@ class DriveSystem(object):
                 k = k + 1
         self.stop()
 
-
-
-    def draw_a_circle(self,radius, time):
+    def draw_a_circle(self,radius, times):
         self.right_motor.reset_position()
         left_wheel_distance = 2*radius*math.pi
         right_wheel_distance = 2*(radius + 6.4)*math.pi
-        self.go(left_wheel_distance/time,right_wheel_distance/time)
+        self.go(left_wheel_distance/times,right_wheel_distance/times)
+        while True:
+            if self.right_motor.get_position() >= 100 * 360 / self.wheel_circumference:
+                self.stop()
+                self.sound_system.speech_maker.speak("The circle is too big, i'm going to sleep, bye")
+                break
 
 
 ###############################################################################
@@ -1190,8 +1182,6 @@ class RoseTurtle(object):
           :type sound_system: SoundSystem
           :type drive_system: DriveSystem
           :type arm_and_claw: ArmAndClaw
-
-
         """
         self.drive_system = drive_system
         self.sensor_system = sensor_system
@@ -1203,15 +1193,9 @@ class RoseTurtle(object):
     def turn(self,degree):
         self.drive_system.m1_turning(int(degree))
 
-
-
-
-
-    def square(self,length,speed):
+    def square(self, length, speed):
         self.drive_system.draw_a_square(length,speed)
 
     def circle(self,radius,time):
         self.drive_system.draw_a_circle(radius,time)
 
-
-    # def
