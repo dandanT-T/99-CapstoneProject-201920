@@ -252,6 +252,17 @@ class Handler(object):
             print("You get the ninth function!")
             self.spin_counterclockwise_until_sees_object(random.randint(30,70))
 
+    def m2_find_color_and_grab(self,color):
+        self.robot.arm_and_claw.calibrate_arm()
+        while True:
+            self.robot.drive_system.spin_clockwise_until_sees_object(50,1000)
+            if self.robot.sensor_system.color_sensor.get_color()==color:
+                distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+                self.robot.drive_system.go_straight_for_inches_using_time(distance,50)
+                self.robot.arm_and_claw.move_arm_to_position(2000)
+                break
+
+
     def m1_turtle_turn(self, degree):
         print('I am turning.')
         self.robot.RoseTurtle.turn(degree)
