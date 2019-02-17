@@ -9,6 +9,7 @@
 import math
 import random
 import time
+import m3_extra
 
 class Handler(object):
     def __init__(self,robot):
@@ -225,6 +226,8 @@ class Handler(object):
 
     def m3_start_game(self):
         print('Starting the game')
+        m3_extra.m3_start_game(self.robot, self)
+
 
     def m3_forward(self, speed):
         print("go forward", speed, speed)
