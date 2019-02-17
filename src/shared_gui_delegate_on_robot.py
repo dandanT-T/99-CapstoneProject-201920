@@ -218,7 +218,11 @@ class Handler(object):
             if self.robot.sensor_system.get_reflected_light_intensity() < intensity:  #### There's going to be a set intensity
                 break
 
-    #def m3_set_parameters(self):
+    def m3_game_parameters(self, speed, timer_countdown, color_threshold):
+        self.speed = int(speed)
+        self.timer_countdown = int(timer_countdown)
+        self.color_threshold = int(color_threshold)
+
 
 
 
