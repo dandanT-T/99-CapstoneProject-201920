@@ -85,13 +85,15 @@ def controller_frame(window, mqtt_sender):
     frame_label = ttk.Label(frame, text='Robot Controller')
     speed_label = ttk.Label(frame, text='Drive Speed')
     color_threshold_label = ttk.Label(frame, text='Color Intensity')
-    timer_countdown_label = ttk.Label(frame, text='Timer Countdown')
+    timer_countdown_label = ttk.Label(frame, text='Timer')
+    control_label = ttk.Label(frame, text='Game Control')
 
     speed_entry = ttk.Entry(frame, width=9)
     timer_countdown_entry = ttk.Entry(frame, width=9)
     color_threshold_entry = ttk.Entry(frame, width=9)
 
     set_parameters_button = ttk.Button(frame, text='Set')
+    start_button = ttk.Button(frame, text='Start')
     quit_game_button = ttk.Button(frame, text='Quit Game')
     reset_game_button = ttk.Button(frame, text='Reset Game')
 
@@ -133,7 +135,8 @@ def controller_frame(window, mqtt_sender):
     s_button = ttk.Button(frame, text='S Backward', width=11)
     d_button = ttk.Button(frame, text='D Right', width=9)
 
-    # Controller Button Placement
+    # Controller Button
+    # Placement
     w_button.grid(row=6, column=1)
     a_button.grid(row=7, column=0)
     s_button.grid(row=7, column=1)
@@ -143,13 +146,13 @@ def controller_frame(window, mqtt_sender):
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=1, column=0)
     speed_entry.grid(row=2, column=0)
-    set_parameters_button.grid(row=2, column=1)
+    set_parameters_button.grid(row=2, column=2)
+    start_button.grid(row=3, column=2)
+    control_label.grid(row=1, column=2)
     color_threshold_label.grid(row=3, column=0)
     color_threshold_entry.grid(row=4, column=0)
-    timer_countdown_label.grid(row=2, column=2)
-    timer_countdown_entry.grid(row=3, column=2)
-    ### Possible Turn Speed Button
-    ### Possible Turn Speed Button
+    timer_countdown_label.grid(row=2, column=1)
+    timer_countdown_entry.grid(row=3, column=1)
     quit_game_button.grid(row=11, column=1)
     reset_game_button.grid(row=12, column=1)
 
@@ -173,6 +176,33 @@ def handle_quit(mqtt_sender):
 def handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender):
     print('Sending Game Parameters')
     mqtt_sender.send_message('m3_game_parameters', [speed_entry.get(), timer_countdown_entry.get(), color_threshold_entry.get()])
+
+def handle_m3_start_game(mqtt_sender):
+    print('Initializing Game...')
+    mqtt_sender.send_message('m3_start_game')
+
+##### Game Functions ####
+'''def m3_robot_die(self):
+    self.robot.drive_system.stop()
+    phrase = 'Surface is too bright. Shutting Down.'
+    self.robot.sound_system.speech_maker.speak(phrase)
+    self.raise_arm()
+    self.lower_arm()
+
+
+def m3_beep_on_intensity(self, color_threshold_entry):
+    while True:
+        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold_entry.get():
+            beeper = self.robot.sound_system.beeper.beep(2)
+            beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
+
+def m3_game_code(self, color_threshold_entry, timer_countdown_entry):
+    start = time.time()
+    while True:
+        if self.robot.sensor_system.get_reflected_light_intensity() > color_threshold_entry.get():
+            if start + time.time() > timer_countdown_entry.get():
+                m3_robot_die(self)'''
+
 
 
 

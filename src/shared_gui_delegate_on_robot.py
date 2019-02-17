@@ -204,7 +204,7 @@ class Handler(object):
 
     def m3_robot_die(self):
         self.robot.drive_system.stop()
-        phrase = 'I am burning up on this lava, cant take the heat, life fading'
+        phrase = 'Surface is too bright! Shutting down!'
         self.robot.sound_system.speech_maker.speak(phrase)
         self.raise_arm()
         self.lower_arm()
@@ -222,6 +222,9 @@ class Handler(object):
         self.speed = int(speed)
         self.timer_countdown = int(timer_countdown)
         self.color_threshold = int(color_threshold)
+
+    def m3_start_game(self):
+        print('Starting the game')
 
     def m3_forward(self, speed):
         print("go forward", speed, speed)
