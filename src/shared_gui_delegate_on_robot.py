@@ -20,7 +20,8 @@ class Handler(object):
         self.robot = robot
         self.need_to_stop = False
         self.color_threshold = 50
-
+        self.timer_countdown = 10
+        self.need_to_start = False
 ### Drive System Shared Delegate Kirk Preston ###
 
 
@@ -249,6 +250,9 @@ class Handler(object):
     def m3_start_game(self):
         print('Starting the game')
         m3_extra.m3_start_game(self.robot, self)
+
+    def m3_start_process(self):
+        self.need_to_start = True
 
 ##################################################################################################################################
 
