@@ -9,6 +9,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
+import m3_extra
 
 
 def main():
@@ -29,7 +30,7 @@ def real_thing():
 
     while True:
         time.sleep(0.1)
-
+        m3_extra.m3_start_game(robot, delegate)
 
 
 

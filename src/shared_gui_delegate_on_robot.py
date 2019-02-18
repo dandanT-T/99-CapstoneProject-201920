@@ -19,6 +19,8 @@ class Handler(object):
 
         self.robot = robot
         self.need_to_stop = False
+        self.color_threshold = 50
+
 ### Drive System Shared Delegate Kirk Preston ###
 
 
@@ -198,10 +200,10 @@ class Handler(object):
 
 #m3 Kirk Preston Capstone Functions
 
-    def m3_beep_on_intensity(self, color_threshold):
+    '''def m3_beep_on_intensity(self, color_threshold):
         if self.robot.sensor_system.color_sensor.get_reflected_light_intensity() > color_threshold:  ### Might be a redundant conditional statement
             beeper = self.robot.sound_system.beeper.beep()
-            beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop
+            beeper.beep().wait(0.5)  ### I only need it to beep twice in succession and then stop'''
 
     def m3_robot_die(self):
         self.robot.drive_system.stop()

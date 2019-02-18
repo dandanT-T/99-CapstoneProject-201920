@@ -154,10 +154,10 @@ def controller_frame(window, mqtt_sender):
     quit_game_button.grid(row=11, column=1)
     reset_game_button.grid(row=12, column=1)
 
-    set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
+    #set_parameters_button["command"] = lambda: handle_m3_game_parameters(speed_entry, timer_countdown_entry, color_threshold_entry, mqtt_sender)
     quit_game_button["command"] = lambda: handle_quit(mqtt_sender)
     reset_game_button["command"] = lambda: handle_m3_game_reset(mqtt_sender)
-    start_button["command"] = lambda: handle_m3_start_game(mqtt_sender)
+    #start_button["command"] = lambda: handle_m3_start_game(mqtt_sender)
 
     return frame
 
