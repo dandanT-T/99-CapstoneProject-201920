@@ -346,7 +346,6 @@ class DriveSystem(object):
             print(B)
             time.sleep(0.03)
             if B.get_area() >= area:
-                self.stop()
                 break
 
     def spin_counterclockwise_until_sees_object(self, speed, area):
