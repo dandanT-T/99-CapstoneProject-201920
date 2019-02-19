@@ -300,6 +300,7 @@ class DriveSystem(object):
             B = self.sensor_system.camera.get_biggest_blob()
             self.go(speed, -speed)
             if B.get_area() > area:
+                self.stop()
                 break
 
 

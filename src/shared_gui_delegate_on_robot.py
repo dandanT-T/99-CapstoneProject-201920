@@ -295,7 +295,6 @@ class Handler(object):
         :param color: int
         :return: None
         '''
-        self.robot.arm_and_claw.calibrate_arm()
         self.robot.drive_system.m2_send_message(int(color))
         while True:
             self.robot.drive_system.spin_clockwise_until_sees_object(50,1000)
