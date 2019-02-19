@@ -279,8 +279,45 @@ def get_grabbing_color_frame(window,mqtt_sender):
     return frame
 
 def handle_color_and_grab(color,mqtt_sender):
+    '''
+    handle the messages
+    :param color: int
+    :param mqtt_sender: mqtt_sender
+    :return: None
+    '''
     print(color)
     mqtt_sender.send_message("m2_find_color_and_grab",[color])
+
+def identify_color(int):
+    '''
+    Identify the number as colors
+    :param int: int
+    :return: strings of color
+    '''
+    if int==0:
+        return "No Color"
+    elif int==1:
+        return "Black"
+    elif int==2:
+        return "Blue"
+    elif int==3:
+        return "Green"
+    elif int==4:
+        return "Yellow"
+    elif int==5:
+        return "Red"
+    elif int==6:
+        return "White"
+    else:
+        return "Brown"
+
+class Delegate_on_laptop(object):
+    def __init__(self, root):
+        self.root = root
+
+    def sending_messages(self,message):
+        print("the color sent is"+identify_color(int(message)))
+
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

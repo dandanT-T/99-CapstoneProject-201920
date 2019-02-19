@@ -290,7 +290,13 @@ class Handler(object):
             self.spin_counterclockwise_until_sees_object(random.randint(30,70))
 
     def m2_find_color_and_grab(self,color):
+        '''
+        find certain color and grab it
+        :param color: int
+        :return: None
+        '''
         self.robot.arm_and_claw.calibrate_arm()
+        self.robot.drive_system.m2_send_message(int(color))
         while True:
             self.robot.drive_system.spin_clockwise_until_sees_object(50,1000)
             if self.robot.sensor_system.color_sensor.get_color()==color:

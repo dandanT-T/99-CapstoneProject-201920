@@ -397,6 +397,14 @@ class DriveSystem(object):
                 self.sound_system.speech_maker.speak("The circle is too big, i'm going to sleep, bye")
                 break
 
+    def m2_send_message(self,message):
+        '''
+        send message to computers
+        :param message: str
+        :return: None
+        '''
+        self.mqtt_sender.send_message("sending_messages",[message])
+
 
 ###############################################################################
 #    ArmAndClaw
