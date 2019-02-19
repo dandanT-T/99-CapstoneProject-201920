@@ -13,8 +13,6 @@ from tkinter import ttk
 import shared_gui
 import math
 
-import rosegraphics as rg
-
 
 def main():
     """

@@ -290,12 +290,18 @@ class Handler(object):
             self.spin_counterclockwise_until_sees_object(random.randint(30,70))
 
     def m2_find_color_and_grab(self,color):
-        self.robot.arm_and_claw.calibrate_arm()
+        '''
+        find certain color and grab it
+        :param color: int
+        :return: None
+        '''
         while True:
-            self.robot.drive_system.spin_clockwise_until_sees_object(50,1000)
-            if self.robot.sensor_system.color_sensor.get_color()==color:
+            B = self.robot.sensor_system.camera.get_biggest_blob()
+            self.robot.drive_system.go(-70,70)
+            if B.get_area()>=1000:
+                print(self.robot.sensor_system.color_sensor)
                 distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-                self.robot.drive_system.go_straight_for_inches_using_time(distance,50)
+                self.robot.drive_system.go_straight_for_inches_using_time(distance, 50)
                 self.robot.arm_and_claw.move_arm_to_position(2000)
                 break
 
