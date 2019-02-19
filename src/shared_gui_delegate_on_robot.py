@@ -297,8 +297,10 @@ class Handler(object):
         '''
         self.robot.drive_system.m2_send_message(int(color))
         while True:
-            self.robot.drive_system.spin_clockwise_until_sees_object(50,1000)
+            self.robot.drive_system.spin_clockwise_until_sees_object(50,500)
             if self.robot.sensor_system.color_sensor.get_color()==color:
+                self.stop()
+                print(self.robot.sensor_system.color_sensor)
                 distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
                 self.robot.drive_system.go_straight_for_inches_using_time(distance,50)
                 self.robot.arm_and_claw.move_arm_to_position(2000)
