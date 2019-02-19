@@ -297,8 +297,8 @@ class Handler(object):
         '''
         while True:
             B = self.robot.sensor_system.camera.get_biggest_blob()
-            self.robot.drive_system.go(-100,100)
-            if B.get_area()>1000 and self.robot.sensor_system.color_sensor.get_color()==color:
+            self.robot.drive_system.go(-70,70)
+            if B.get_area()>=1000:
                 print(self.robot.sensor_system.color_sensor)
                 distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
                 self.robot.drive_system.go_straight_for_inches_using_time(distance, 50)
