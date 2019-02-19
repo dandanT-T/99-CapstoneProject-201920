@@ -14,7 +14,7 @@ class Game(object):
 
 
 def m3_start_game(robot, parameter_box):
-    #robot = rosebot.RoseBot()
+    robot = rosebot.RoseBot()
     #print('start')
     while True:
         if parameter_box.need_to_start == True:
@@ -30,12 +30,15 @@ def m3_step_one(robot):
     while True:
         print(robot.sensor_system.color_sensor.get_reflected_light_intensity())
         if robot.sensor_system.color_sensor.get_reflected_light_intensity() < 10:  # parameter_box.color_threshold:  ### Might be a redundant conditional statement
-            for k in range(2):
+            for k in range(5):
                 robot.sound_system.beeper.beep().wait()
-            print('You win')
-            robot.drive_system.stop()
+            print('You made it!')
+            robot.sound_system.tone_maker.play_tone_sequence([
+                (392, 350, 100), (392, 350, 100), (392, 350, 100), (311.1, 250, 100),
+                (466.2, 25, 100), (392, 350, 100), (311.1, 250, 100), (466.2, 25, 100),
+                (392, 700, 100), (587.32, 350, 100), (587.32, 350, 100)])
             break
-        if time.time() - k > 60:
+        if time.time() - k > 10:
             print('You Lose')
             robot.drive_system.stop()
             break
