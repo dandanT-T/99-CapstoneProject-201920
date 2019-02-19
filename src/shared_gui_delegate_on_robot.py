@@ -295,14 +295,13 @@ class Handler(object):
         :param color: int
         :return: None
         '''
-        self.robot.drive_system.m2_send_message(int(color))
         while True:
-            self.robot.drive_system.spin_clockwise_until_sees_object(100,1000)
-            if self.robot.sensor_system.color_sensor.get_color()==color:
-                self.robot.drive_system.stop()
+            B = self.robot.sensor_system.camera.get_biggest_blob()
+            self.robot.drive_system.go(-100,100)
+            if B.get_area()>1000 and self.robot.sensor_system.color_sensor.get_color()==color:
                 print(self.robot.sensor_system.color_sensor)
                 distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-                self.robot.drive_system.go_straight_for_inches_using_time(distance,50)
+                self.robot.drive_system.go_straight_for_inches_using_time(distance, 50)
                 self.robot.arm_and_claw.move_arm_to_position(2000)
                 break
 
