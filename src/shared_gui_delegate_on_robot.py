@@ -62,6 +62,43 @@ class Handler(object):
 
 ### Arm & Claw Shared Delegate- Nelson ###
 
+    def growl(self):
+        print('i am using growl')
+        P = str('grrrrr')
+        self.robot.sound_system.speech_maker.speak(P).wait()
+
+    def quick_attack(self):
+        print('i am using quick_attack')
+        while True:
+            D = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(D)
+            self.robot.drive_system.go(100,100)
+            if D <= 1:
+                self.robot.drive_system.go_backward_until_distance_is_greater_than(7,100)
+                break
+
+    def take_down(self):
+        print('i am using tackle')
+        while True:
+            D = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(D)
+            self.robot.drive_system.go(100,100)
+
+    def seismic(self):
+        print('i am using seismic slam')
+        while True:
+            D = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(D)
+            self.robot.drive_system.go(100,100)
+            if D < 0.5:
+                self.robot.drive_system.stop()
+                self.robot.arm_and_claw.raise_arm()
+                self.robot.arm_and_claw.lower_arm()
+                self.robot.drive_system.go_backward_until_distance_is_greater_than(7,100)
+                break
+
+
+
     def feature_9(self,speed, length, frequency):
         print('got to feature 9')
         print(speed,length, frequency)
