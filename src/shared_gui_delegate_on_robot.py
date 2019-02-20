@@ -352,7 +352,6 @@ class Handler(object):
                 self.robot.drive_system.go_backward_until_distance_is_greater_than(2*distance,70)
                 break
 
-
     def m1_turtle_turn(self, degree):
         print('I am turning.')
         self.robot.RoseTurtle.turn(degree)
