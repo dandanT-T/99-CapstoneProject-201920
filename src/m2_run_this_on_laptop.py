@@ -221,72 +221,72 @@ def get_grabbing_color_frame(window,mqtt_sender):
     '''
     frame=ttk.Frame(window,padding=10, borderwidth=5, relief="ridge")
     frame.grid()
-    frame_label=ttk.Label(frame,text="Grab certain an object with color")
+    frame_label=ttk.Label(frame,text="Do different things depending on color")
     frame_label.grid(row=0,column=1)
 
-    color_label=ttk.Label(frame,text="Color(need to be an int)")
-    color_label.grid(row=1,column=0)
-    color_entry=ttk.Entry(frame,width=9)
-    color_entry.grid(row=2,column=0)
-    color_and_grab_button=ttk.Button(frame,text="Find the object and grab it")
-    color_and_grab_button.grid(row=2,column=2)
+    # color_label=ttk.Label(frame,text="Color(need to be an int)")
+    # color_label.grid(row=1,column=0)
+    # color_entry=ttk.Entry(frame,width=9)
+    # color_entry.grid(row=2,column=0)
+    color_and_grab_button=ttk.Button(frame,text="Find the object and do things")
+    color_and_grab_button.grid(row=1,column=1)
+    #
+    # list_of_colors_label=ttk.Label(frame,text="Translation between colors and ints:")
+    # list_of_colors_label.grid(row=3,column=0)
+    #
+    # first_color_label=ttk.Label(frame,text="No Color")
+    # first_int_label=ttk.Label(frame,text="0")
+    # first_color_label.grid(row=4,column=0)
+    # first_int_label.grid(row=4,column=1)
+    #
+    # second_color_label = ttk.Label(frame, text="Black")
+    # second_int_label = ttk.Label(frame, text="1")
+    # second_color_label.grid(row=5, column=0)
+    # second_int_label.grid(row=5, column=1)
+    #
+    # third_color_label = ttk.Label(frame, text="Blue")
+    # third_int_label = ttk.Label(frame, text="2")
+    # third_color_label.grid(row=6, column=0)
+    # third_int_label.grid(row=6, column=1)
+    #
+    # fourth_color_label = ttk.Label(frame, text="Green")
+    # fourth_int_label = ttk.Label(frame, text="3")
+    # fourth_color_label.grid(row=7, column=0)
+    # fourth_int_label.grid(row=7, column=1)
+    #
+    # fifth_color_label = ttk.Label(frame, text="Yellow")
+    # fifth_int_label = ttk.Label(frame, text="4")
+    # fifth_color_label.grid(row=8, column=0)
+    # fifth_int_label.grid(row=8, column=1)
+    #
+    # sixth_color_label = ttk.Label(frame, text="Red")
+    # sixth_int_label = ttk.Label(frame, text="5")
+    # sixth_color_label.grid(row=9, column=0)
+    # sixth_int_label.grid(row=9, column=1)
+    #
+    # seventh_color_label = ttk.Label(frame, text="White")
+    # seventh_int_label = ttk.Label(frame, text="6")
+    # seventh_color_label.grid(row=10, column=0)
+    # seventh_int_label.grid(row=10, column=1)
+    #
+    # seventh_color_label = ttk.Label(frame, text="Brown")
+    # seventh_int_label = ttk.Label(frame, text="7")
+    # seventh_color_label.grid(row=11, column=0)
+    # seventh_int_label.grid(row=11, column=1)
 
-    list_of_colors_label=ttk.Label(frame,text="Translation between colors and ints:")
-    list_of_colors_label.grid(row=3,column=0)
-
-    first_color_label=ttk.Label(frame,text="No Color")
-    first_int_label=ttk.Label(frame,text="0")
-    first_color_label.grid(row=4,column=0)
-    first_int_label.grid(row=4,column=1)
-
-    second_color_label = ttk.Label(frame, text="Black")
-    second_int_label = ttk.Label(frame, text="1")
-    second_color_label.grid(row=5, column=0)
-    second_int_label.grid(row=5, column=1)
-
-    third_color_label = ttk.Label(frame, text="Blue")
-    third_int_label = ttk.Label(frame, text="2")
-    third_color_label.grid(row=6, column=0)
-    third_int_label.grid(row=6, column=1)
-
-    fourth_color_label = ttk.Label(frame, text="Green")
-    fourth_int_label = ttk.Label(frame, text="3")
-    fourth_color_label.grid(row=7, column=0)
-    fourth_int_label.grid(row=7, column=1)
-
-    fifth_color_label = ttk.Label(frame, text="Yellow")
-    fifth_int_label = ttk.Label(frame, text="4")
-    fifth_color_label.grid(row=8, column=0)
-    fifth_int_label.grid(row=8, column=1)
-
-    sixth_color_label = ttk.Label(frame, text="Red")
-    sixth_int_label = ttk.Label(frame, text="5")
-    sixth_color_label.grid(row=9, column=0)
-    sixth_int_label.grid(row=9, column=1)
-
-    seventh_color_label = ttk.Label(frame, text="White")
-    seventh_int_label = ttk.Label(frame, text="6")
-    seventh_color_label.grid(row=10, column=0)
-    seventh_int_label.grid(row=10, column=1)
-
-    seventh_color_label = ttk.Label(frame, text="Brown")
-    seventh_int_label = ttk.Label(frame, text="7")
-    seventh_color_label.grid(row=11, column=0)
-    seventh_int_label.grid(row=11, column=1)
-
-    color_and_grab_button["command"]=lambda :handle_color_and_grab(color_entry.get(),mqtt_sender)
+    color_and_grab_button["command"] = lambda: handle_do_different_things(mqtt_sender)
 
     return frame
 
-def handle_color_and_grab(color,mqtt_sender):
+def handle_do_different_things(mqtt_sender):
     '''
     handle the messages
     :param color: int
     :param mqtt_sender: mqtt_sender
     :return: None
     '''
-    print(color)
-    mqtt_sender.send_message("m2_find_color_and_grab",[color])
+    print("do things")
+    mqtt_sender.send_message("m2_do_different_things")
 
 def identify_color(int):
     '''
@@ -316,7 +316,7 @@ class Delegate_on_laptop(object):
         self.root = root
 
     def sending_messages(self,message):
-        print("the color sent is"+identify_color(int(message)))
+        print("The robot have found"+identify_color(int(message)))
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

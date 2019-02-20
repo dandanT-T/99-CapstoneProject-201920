@@ -326,20 +326,30 @@ class Handler(object):
             print("You get the ninth function!")
             self.spin_counterclockwise_until_sees_object(random.randint(30,70))
 
-    def m2_find_color_and_grab(self,color):
+    def m2_do_different_things(self):
         '''
-        find certain color and grab it
-        :param color: int
+        find certain color and do different things depending on color
         :return: None
         '''
+        print("True")
         while True:
-            B = self.robot.sensor_system.camera.get_biggest_blob()
-            self.robot.drive_system.go(-70,70)
-            if B.get_area()>=1000:
-                print(self.robot.sensor_system.color_sensor)
-                distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-                self.robot.drive_system.go_straight_for_inches_using_time(distance, 50)
+            self.robot.sensor_system.camera.set_signature("SIG1")
+            b1 = self.robot.sensor_system.camera.get_biggest_blob()
+            self.robot.sensor_system.camera.set_signature("SIG2")
+            b2 = self.robot.sensor_system.camera.get_biggest_blob()
+            self.robot.drive_system.go(70,-70)
+            if b1.get_area()>=1000:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.m2_send_message("Yellow Object")
+                distance=self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+                self.robot.drive_system.go_straight_for_inches_using_time(distance,70)
                 self.robot.arm_and_claw.move_arm_to_position(2000)
+                break
+            elif b2.get_area()>=1000:
+                self.robot.drive_system.stop()
+                self.robot.drive_system.m2_send_message("Blue Object")
+                distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+                self.robot.drive_system.go_backward_until_distance_is_greater_than(2*distance,70)
                 break
 
 
