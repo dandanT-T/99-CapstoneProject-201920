@@ -331,26 +331,32 @@ class Handler(object):
         find certain color and do different things depending on color
         :return: None
         '''
-        print("True")
         while True:
             self.robot.sensor_system.camera.set_signature("SIG1")
             b1 = self.robot.sensor_system.camera.get_biggest_blob()
             self.robot.sensor_system.camera.set_signature("SIG2")
             b2 = self.robot.sensor_system.camera.get_biggest_blob()
             self.robot.drive_system.go(70,-70)
-            if b1.get_area()>=1000:
+            if b1.get_area()>=2000:
                 self.robot.drive_system.stop()
-                self.robot.drive_system.m2_send_message("Yellow Object")
+                self.robot.drive_system.go(-70,70)
+                time.sleep(0.25)
+                self.robot.drive_system.stop()
+                self.robot.drive_system.mqtt_sender.send_message("yellow_object")
                 distance=self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-                self.robot.drive_system.go_straight_for_inches_using_time(distance,70)
-                self.robot.arm_and_claw.move_arm_to_position(2000)
+                self.robot.drive_system.go_straight_for_inches_using_encoder(distance+2,70)
+                self.robot.arm_and_claw.raise_arm()
                 break
-            elif b2.get_area()>=1000:
+            elif b2.get_area()>=2000:
                 self.robot.drive_system.stop()
-                self.robot.drive_system.m2_send_message("Blue Object")
+                self.robot.drive_system.go(-70, 70)
+                time.sleep(0.25)
+                self.robot.drive_system.stop()
+                self.robot.drive_system.mqtt_sender.send_message("blue_object")
                 distance = self.robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-                self.robot.drive_system.go_backward_until_distance_is_greater_than(2*distance,70)
+                self.robot.drive_system.go_backward_until_distance_is_greater_than(2*(distance+2),70)
                 break
+        self.robot.arm_and_claw.lower_arm()
 
     def m1_turtle_turn(self, degree):
         print('I am turning.')

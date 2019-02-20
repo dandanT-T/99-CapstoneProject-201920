@@ -312,11 +312,14 @@ def identify_color(int):
         return "Brown"
 
 class Delegate_on_laptop(object):
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
+        self.a=1
 
-    def sending_messages(self,message):
-        print("The robot have found"+identify_color(int(message)))
+    def yellow_object(self):
+        print("The robot have found a yellow object.")
+
+    def blue_object(self):
+        print("The robot have found a blue object.")
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
